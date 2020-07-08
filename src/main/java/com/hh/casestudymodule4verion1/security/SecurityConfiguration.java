@@ -1,4 +1,4 @@
-package com.hh.casestudymodule4verion1.services;
+package com.hh.casestudymodule4verion1.security;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;

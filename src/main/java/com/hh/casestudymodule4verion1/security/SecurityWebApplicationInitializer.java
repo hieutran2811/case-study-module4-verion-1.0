@@ -1,4 +1,4 @@
-package com.hh.casestudymodule4verion1.services;
+package com.hh.casestudymodule4verion1.security;
 
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 
