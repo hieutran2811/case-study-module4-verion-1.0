@@ -1,4 +1,4 @@
-package com.hh.casestudymodule4verion1.repositories.account;
+package com.hh.casestudymodule4verion1.repositories;
 
 import com.hh.casestudymodule4verion1.models.Account;
 import org.springframework.data.repository.CrudRepository;

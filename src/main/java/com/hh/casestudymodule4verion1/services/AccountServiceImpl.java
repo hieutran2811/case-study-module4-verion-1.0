@@ -3,7 +3,7 @@ package com.hh.casestudymodule4verion1.services;
 
 import com.hh.casestudymodule4verion1.models.Account;
 import com.hh.casestudymodule4verion1.models.Role;
-import com.hh.casestudymodule4verion1.repositories.account.AccountRepository;
+import com.hh.casestudymodule4verion1.repositories.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import org.springframework.security.core.GrantedAuthority;
