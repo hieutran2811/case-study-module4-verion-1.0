@@ -22,7 +22,7 @@ public class Account {
     @OneToMany
     private List<Book> books;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Role> roles;
 
     @OneToMany

@@ -12,15 +12,15 @@ public class TestController {
     }
     @GetMapping("/user")
     public String getUserHome(){
-        return "/user";
+        return "user";
     }
     @GetMapping("/author")
     public String getAuthorHome(){
-        return "/author";
+        return "author";
     }
     @GetMapping("/admin")
     public String getAdminHome(){
-        return "/admin";
+        return "admin";
     }
 
 
