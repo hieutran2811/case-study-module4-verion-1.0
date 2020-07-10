@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -29,7 +29,8 @@
 
                 </ul>
                 <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
-                    <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm" aria-label="Search">
+                    <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
+                           aria-label="Search">
                     <input type="submit" value="tìm kiếm">
                 </form>
                 <a href="/#" style="color:black ">Đăng nhập</a>
@@ -45,6 +46,17 @@
     <div class="row">
         <div class="col-sm-9">
             <div class="row">
+                <th:block th:each="b: ${bookList}">
+                    <div class="card-group col-sm-4">
+                        <div class="card">
+                            <img src="card-img-top" alt="Card image cap" th:src="${b.image}">
+                            <div class="card-body">
+                                <p th:text="${b.introduceBook}"></p>
+                                <p th:text="${b.statusBook}"></p>
+                            </div>
+                        </div>
+                    </div>
+                </th:block>
             </div>
         </div>
         <div class="col-sm-3" id="sidebar">
