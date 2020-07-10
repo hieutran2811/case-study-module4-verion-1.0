@@ -4,6 +4,7 @@ package com.hh.casestudymodule4verion1.models;
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.List;
+
 @Entity
 public class Book {
 
@@ -13,7 +14,7 @@ public class Book {
 
     private String author;
 
-    private int reads;
+    private int views;
 
     private double vote;
 
@@ -117,12 +118,12 @@ public class Book {
         this.author = author;
     }
 
-    public int getReads() {
-        return reads;
+    public int getViews() {
+        return views;
     }
 
-    public void setReads(int reads) {
-        this.reads = reads;
+    public void setViews(int views) {
+        this.views = views;
     }
 
     public int getLike() {
