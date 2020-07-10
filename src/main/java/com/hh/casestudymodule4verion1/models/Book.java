@@ -21,9 +21,21 @@ public class Book {
 
     private String statusBook;
 
+    private String nameBook;
+
+    private String image;
+
+
     @Column(columnDefinition = "TEXT")
     private String introduceBook;
 
+    public String getNameBook() {
+        return nameBook;
+    }
+
+    public void setNameBook(String nameBook) {
+        this.nameBook = nameBook;
+    }
 
     @ManyToOne
     private Account account;
@@ -135,5 +147,13 @@ public class Book {
 
     public void setVotes(Vote votes) {
         this.votes = votes;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 }
