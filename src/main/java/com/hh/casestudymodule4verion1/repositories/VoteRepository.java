@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface VoteRepository extends CrudRepository<Vote,Long> {
+    int countVotesByBook_Id(Long book_id);
 }
