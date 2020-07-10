@@ -21,6 +21,10 @@ public class Book {
 
     private String status;
 
+    private String image;
+
+
+
     @Column(columnDefinition = "TEXT")
     private String introduce;
 
@@ -40,6 +44,14 @@ public class Book {
 
     @OneToOne
     private Vote votes;
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
 
     public Vote getVotes() {
         return votes;
