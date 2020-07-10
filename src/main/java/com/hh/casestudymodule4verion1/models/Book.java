@@ -11,18 +11,18 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String author;
+    private String authorBook;
 
-    private int reads;
+    private int readsBook;
 
-    private double vote;
+    private double voteBook;
 
-    private int like;
+    private int likeBook;
 
-    private String status;
+    private String statusBook;
 
     @Column(columnDefinition = "TEXT")
-    private String introduce;
+    private String introduceBook;
 
 
     @ManyToOne
@@ -41,36 +41,60 @@ public class Book {
     @OneToOne
     private Vote votes;
 
-    public Vote getVotes() {
-        return votes;
+    public Long getId() {
+        return id;
     }
 
-    public void setVotes(Vote votes) {
-        this.votes = votes;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public List<Comment> getComments() {
-        return comments;
+    public String getAuthorBook() {
+        return authorBook;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
+    public void setAuthorBook(String authorBook) {
+        this.authorBook = authorBook;
     }
 
-    public List<Chapter> getChapters() {
-        return chapters;
+    public int getReadsBook() {
+        return readsBook;
     }
 
-    public void setChapters(List<Chapter> chapters) {
-        this.chapters = chapters;
+    public void setReadsBook(int readsBook) {
+        this.readsBook = readsBook;
     }
 
-    public List<Category> getCategoryList() {
-        return categoryList;
+    public double getVoteBook() {
+        return voteBook;
     }
 
-    public void setCategoryList(List<Category> categoryList) {
-        this.categoryList = categoryList;
+    public void setVoteBook(double voteBook) {
+        this.voteBook = voteBook;
+    }
+
+    public int getLikeBook() {
+        return likeBook;
+    }
+
+    public void setLikeBook(int likeBook) {
+        this.likeBook = likeBook;
+    }
+
+    public String getStatusBook() {
+        return statusBook;
+    }
+
+    public void setStatusBook(String statusBook) {
+        this.statusBook = statusBook;
+    }
+
+    public String getIntroduceBook() {
+        return introduceBook;
+    }
+
+    public void setIntroduceBook(String introduceBook) {
+        this.introduceBook = introduceBook;
     }
 
     public Account getAccount() {
@@ -81,59 +105,35 @@ public class Book {
         this.account = account;
     }
 
-    public Long getId() {
-        return id;
+    public List<Category> getCategoryList() {
+        return categoryList;
     }
 
-    public double getVote() {
-        return vote;
+    public void setCategoryList(List<Category> categoryList) {
+        this.categoryList = categoryList;
     }
 
-    public void setVote(double vote) {
-        this.vote = vote;
+    public List<Chapter> getChapters() {
+        return chapters;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setChapters(List<Chapter> chapters) {
+        this.chapters = chapters;
     }
 
-    public String getAuthor() {
-        return author;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
-    public int getReads() {
-        return reads;
+    public Vote getVotes() {
+        return votes;
     }
 
-    public void setReads(int reads) {
-        this.reads = reads;
-    }
-
-    public int getLike() {
-        return like;
-    }
-
-    public void setLike(int like) {
-        this.like = like;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getIntroduce() {
-        return introduce;
-    }
-
-    public void setIntroduce(String introduce) {
-        this.introduce = introduce;
+    public void setVotes(Vote votes) {
+        this.votes = votes;
     }
 }
