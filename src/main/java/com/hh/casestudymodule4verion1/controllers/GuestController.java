@@ -54,11 +54,11 @@ public class GuestController {
     public ModelAndView bookDetail(@PathVariable Long id) {
         ModelAndView modelAndView=null;
         Optional<Book> book= bookService.findById(id);
-        if (book.get()==null){
+        if (!book.isPresent()){
             modelAndView=new ModelAndView("error-404");
-            return modelAndView
+            return modelAndView;
         }
-        return new ModelAndView("guest/book-detail", "book",book);
+        return new ModelAndView("guest/book-detail", "book",book.get());
     }
 
 
