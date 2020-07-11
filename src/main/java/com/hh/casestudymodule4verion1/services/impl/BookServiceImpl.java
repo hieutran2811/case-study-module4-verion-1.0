@@ -29,8 +29,9 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findBooksByCategory(Optional<Category> categories) {
-        return bookRepository.findAllByCategoryList(categories);
+    public List<Book> findBooksByCategory(Category category) {
+        return bookRepository.findAllByCategoryList(category);
     }
+
 
 }

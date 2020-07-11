@@ -14,5 +14,5 @@ public interface BookService {
 
     Optional<Book> findById(Long id);
 
-    List<Book> findBooksByCategory(Optional<Category> categories);
+    List<Book> findBooksByCategory(Category category);
 }

@@ -40,15 +40,25 @@ public class GuestController {
 
     @RequestMapping("/category/{id}")
     public ModelAndView bookListByCategory(@PathVariable Long id) {
-        ModelAndView modelAndView = new ModelAndView("guest/lis-book-by-category");
-        Optional<Category> categories = categoryService.getCategoryById(id);
-        modelAndView.addObject("category", bookService.findBooksByCategory(categories));
-        return modelAndView;
+        ModelAndView modelAndView = null;
+        Optional<Category> category = categoryService.getCategoryById(id);
+        if (category.isPresent()) {
+            List<Book> list = bookService.findBooksByCategory(category.get());
+            modelAndView = new ModelAndView("guest/list-book-by-category", "books", list);
+            return modelAndView;
+        }
+        return new ModelAndView("/error-404");
     }
 
     @GetMapping("/book/{id}")
     public ModelAndView bookDetail(@PathVariable Long id) {
-        return new ModelAndView("guest/book-detail", "book", bookService.findById(id));
+        ModelAndView modelAndView=null;
+        Optional<Book> book= bookService.findById(id);
+        if (book.get()==null){
+            modelAndView=new ModelAndView("error-404");
+            return modelAndView;
+        }
+        return new ModelAndView("guest/book-detail", "book",book);
     }
 
 
