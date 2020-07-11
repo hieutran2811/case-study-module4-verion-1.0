@@ -1,6 +1,7 @@
 package com.hh.casestudymodule4verion1.services.impl;
 
 import com.hh.casestudymodule4verion1.models.Book;
+import com.hh.casestudymodule4verion1.models.Category;
 import com.hh.casestudymodule4verion1.repositories.BookRepository;
 import com.hh.casestudymodule4verion1.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +29,8 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> findBooksByCategory() {
-        return bookRepository.findAllByCategoryList();
+    public List<Book> findBooksByCategory(Category category) {
+        return bookRepository.findAllByCategoryList(category);
     }
 
 
