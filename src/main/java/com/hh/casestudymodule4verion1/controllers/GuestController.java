@@ -56,7 +56,7 @@ public class GuestController {
         Optional<Book> book= bookService.findById(id);
         if (book.get()==null){
             modelAndView=new ModelAndView("error-404");
-            return modelAndView
+            return modelAndView;
         }
         return new ModelAndView("guest/book-detail", "book",book);
     }
