@@ -49,7 +49,9 @@
                 <th:block th:each="b: ${bookList}">
                     <div class="card-group col-sm-4">
                         <div class="card">
-                            <img src="card-img-top" th:href="@{/book/{id}(id=${b.id})}"   alt="Card image cap" th:src="@{${b.image}}">
+                            <a th:href="@{/book/{id}(id=${b.id})}" >
+                                <img src="card-img-top"   alt="Card image cap" th:src="@{${b.image}}">
+                            </a>
                             <div class="card-body">
                                 <p th:text="${b.nameBook}"></p>
                             </div>

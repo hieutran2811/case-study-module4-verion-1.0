@@ -1,6 +1,7 @@
 package com.hh.casestudymodule4verion1.services;
 
 import com.hh.casestudymodule4verion1.models.Book;
+import com.hh.casestudymodule4verion1.models.Category;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -13,5 +14,5 @@ public interface BookService {
 
     Optional<Book> findById(Long id);
 
-    List<Book> findBooksByCategory();
+    List<Book> findBooksByCategory(Category category);
 }
