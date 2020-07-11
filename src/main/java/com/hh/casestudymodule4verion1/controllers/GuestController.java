@@ -52,7 +52,13 @@ public class GuestController {
 
     @GetMapping("/book/{id}")
     public ModelAndView bookDetail(@PathVariable Long id) {
-        return new ModelAndView("guest/book-detail", "book", bookService.findById(id));
+        ModelAndView modelAndView=null;
+        Optional<Book> book= bookService.findById(id);
+        if (book.get()==null){
+            modelAndView=new ModelAndView("error-404");
+            return modelAndView
+        }
+        return new ModelAndView("guest/book-detail", "book",book);
     }
 
 
