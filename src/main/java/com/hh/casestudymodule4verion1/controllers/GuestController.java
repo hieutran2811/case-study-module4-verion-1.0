@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("")
@@ -40,12 +41,13 @@ public class GuestController {
     @RequestMapping("/category/{id}")
     public ModelAndView bookListByCategory(@PathVariable Long id) {
         ModelAndView modelAndView = new ModelAndView("guest/lis-book-by-category");
-        modelAndView.addObject("category", bookService.findBooksByCategory());
+        Optional<Category> categories = categoryService.getCategoryById(id);
+        modelAndView.addObject("category", bookService.findBooksByCategory(categories));
         return modelAndView;
     }
 
     @GetMapping("/book/{id}")
-    public ModelAndView bookDeatil(@PathVariable Long id) {
+    public ModelAndView bookDetail(@PathVariable Long id) {
         return new ModelAndView("guest/book-detail", "book", bookService.findById(id));
     }
 
