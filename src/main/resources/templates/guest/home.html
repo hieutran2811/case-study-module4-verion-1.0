@@ -49,10 +49,9 @@
                 <th:block th:each="b: ${bookList}">
                     <div class="card-group col-sm-4">
                         <div class="card">
-                            <img src="card-img-top" alt="Card image cap" th:src="@{${b.image}}">
+                            <img src="card-img-top"  alt="Card image cap" th:src="@{${b.image}}">
                             <div class="card-body">
-                                <p th:text="${b.introduceBook}"></p>
-                                <p th:text="${b.statusBook}"></p>
+                                <p th:text="${b.nameBook}"></p>
                             </div>
                         </div>
                     </div>
@@ -66,13 +65,8 @@
                 </button>
                 <button type="button" class="list-group-item list-group-item-action">Thể loại truyện
                 </button>
-                <button type="button" class="list-group-item list-group-item-action">
-                </button>
-                <button type="button" class="list-group-item list-group-item-action">a
-                </button>
-                <button type="button" class="list-group-item list-group-item-action">b
-                </button>
-                <button type="button" class="list-group-item list-group-item-action">c
+                <button th:each="category:${categoryList}" type="button" class="list-group-item list-group-item-action">
+                    <a th:text="${category.name}" th:href="@{#}"></a>
                 </button>
             </div>
             <div class="list-group">
@@ -91,11 +85,15 @@
         <div class="col-sm-12">
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                    <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                    <li class="page-item"><a class="page-link" href="#">1</a></li>
-                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                    <li class="page-item"><a class="page-link" href="#">3</a></li>
-                    <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    <li class="page-item">
+                        <a class="page-link"  th:href="@{'/'(page=${bookList.number - 1})}" th:if="${bookList.hasPrevious()}">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <span th:text="${bookList.number + 1}"></span>/<span th:text="${bookList.totalPages}"></span>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/'(page=${bookList.number + 1})}" th:if="${bookList.hasNext()}">Next</a>
+                    </li>
                 </ul>
             </nav>
         </div>

@@ -2,7 +2,9 @@ package com.hh.casestudymodule4verion1.controllers;
 
 
 import com.hh.casestudymodule4verion1.models.Book;
+import com.hh.casestudymodule4verion1.models.Category;
 import com.hh.casestudymodule4verion1.services.BookService;
+import com.hh.casestudymodule4verion1.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,17 +23,23 @@ public class GuestController {
     @Autowired
     private BookService bookService;
 
-    @GetMapping
+    @Autowired
+    private CategoryService categoryService;
+
+    @GetMapping("/")
     public ModelAndView guestHome(@PageableDefault(size = 9) Pageable pageable) {
 
+        Page<Book> bookPages=bookService.getAllBook(pageable);
 
-//        ModelAndView modelAndView = new ModelAndView("guest/home", "bookList",bookService.getAllBook(pageable));
-//        return modelAndView;
-        Page<Book> list=bookService.getAllBook(pageable);
-        ModelAndView modelAndView=new ModelAndView("guest/home","bookList",list);
+        List<Category> categoryList=categoryService.getAllCategory();
+        ModelAndView modelAndView=new ModelAndView("guest/home");
+        modelAndView.addObject("bookList",bookPages);
+        modelAndView.addObject("categoryList",categoryList);
         return modelAndView;
-
     }
+
+
+
 
 
 }
