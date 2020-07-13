@@ -1,5 +1,6 @@
 package com.hh.casestudymodule4verion1.services.impl;
 
+import com.hh.casestudymodule4verion1.models.Book;
 import com.hh.casestudymodule4verion1.models.Category;
 import com.hh.casestudymodule4verion1.repositories.CategoryRepository;
 import com.hh.casestudymodule4verion1.services.CategoryService;
@@ -22,5 +23,10 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Optional<Category> getCategoryById(Long id) {
         return categoryRepository.findById(id);
+    }
+
+    @Override
+    public List<Category> getCategoriesByBook(Book book) {
+        return categoryRepository.findAllByBooks(book);
     }
 }
