@@ -1,8 +1,10 @@
 package com.hh.casestudymodule4verion1.controllers;
 
 
+import com.hh.casestudymodule4verion1.models.Account;
 import com.hh.casestudymodule4verion1.models.Book;
 import com.hh.casestudymodule4verion1.models.Category;
+import com.hh.casestudymodule4verion1.services.AccountService;
 import com.hh.casestudymodule4verion1.services.BookService;
 import com.hh.casestudymodule4verion1.services.CategoryService;
 import com.hh.casestudymodule4verion1.services.ChapterService;
@@ -10,17 +12,21 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("")
+@RequestMapping("/")
 public class GuestController {
 
     @Autowired
@@ -32,15 +38,34 @@ public class GuestController {
     @Autowired
     private ChapterService chapterService;
 
-    @GetMapping("/")
-    public ModelAndView guestHome(@PageableDefault(size = 9) Pageable pageable) {
-        Page<Book> bookPages = bookService.getAllBook(pageable);
-        List<Category> categoryList = categoryService.getAllCategory();
-        ModelAndView modelAndView = new ModelAndView("guest/home");
-        modelAndView.addObject("bookList", bookPages);
-        modelAndView.addObject("categoryList", categoryList);
+    @Autowired
+    private AccountService accountService;
 
-        return modelAndView;
+
+    @GetMapping("")
+    public String guestHome(@PageableDefault(size = 9) Pageable pageable, Model model, Principal principal) {
+        String email = "";
+        if(principal!=null){
+            email = principal.getName();
+            Account account = accountService.getAccountByEmail(email);
+            for (int i = 0; i < account.getRoles().size(); i++) {
+                if (account.getRoles().get(i).getName().equals("ROLE_ADMIN")) {
+                    return "redirect:/admin";
+                } else if (account.getRoles().get(i).getName().equals("ROLE_AUTHOR")) {
+                    return "redirect:/author";
+                } else if (account.getRoles().get(i).getName().equals("ROLE_USER")) {
+                    return "redirect:/user";
+                }
+            }
+        } else {
+            Page<Book> bookPages = bookService.getAllBook(pageable);
+            List<Category> categoryList = categoryService.getAllCategory();
+
+            model.addAttribute("bookList", bookPages);
+            model.addAttribute("categoryList", categoryList);
+            return "guest/home";
+        }
+        return null;
     }
 
     @RequestMapping("/category/{id}")
@@ -57,15 +82,15 @@ public class GuestController {
 
     @GetMapping("/book/{id}")
     public ModelAndView bookDetail(@PathVariable Long id) {
-        ModelAndView modelAndView=null;
-        Optional<Book> book= bookService.findById(id);
-        if (!book.isPresent()){
-            modelAndView=new ModelAndView("/error-404");
+        ModelAndView modelAndView = null;
+        Optional<Book> book = bookService.findById(id);
+        if (!book.isPresent()) {
+            modelAndView = new ModelAndView("/error-404");
             return modelAndView;
         }
-        modelAndView= new ModelAndView("guest/book-detail", "book",book.get());
-        modelAndView.addObject("categories",categoryService.getCategoriesByBook(book.get()));
-        modelAndView.addObject("chapters",chapterService.getChaptersByBook(book.get()));
+        modelAndView = new ModelAndView("guest/book-detail", "book", book.get());
+        modelAndView.addObject("categories", categoryService.getCategoriesByBook(book.get()));
+        modelAndView.addObject("chapters", chapterService.getChaptersByBook(book.get()));
         return modelAndView;
     }
 

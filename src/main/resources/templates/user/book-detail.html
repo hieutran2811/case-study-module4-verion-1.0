@@ -10,8 +10,8 @@
 </head>
 <body>
 <div class="container">
-    <div class="row header">
-        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<!--    <div class="row header">-->
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="#">Trang trủ</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -33,13 +33,13 @@
                            aria-label="Search">
                     <input type="submit" value="tìm kiếm">
                 </form>
-                <a href="/login" style="color:black ">Đăng nhập</a>
-                <a href="/#" style="color:black ">Đăng ký</a>
+<!--                <a href="/login" style="color:black ">Đăng nhập</a>-->
+<!--                <a href="/#" style="color:black ">Đăng ký</a>-->
                 <a href="/#" style="color:black ">quên mật khẩu</a>
 
             </div>
         </nav>
-    </div>
+<!--    </div>-->
     <!--    //header finished-->
 
     <!--    phần thân hình ảnh-->
@@ -61,9 +61,7 @@
                 <div class="card-group col-sm-8">
                     <div class="card">
                         <h3 th:text="${book.nameBook}"></h3><br>
-                        <p>
-                            bạn có thể đăng nhập để có tính năng like,vote ,thêm vào truyện yêu thích
-                        </p><br>
+                        ...
                         <a href="#">Đọc truyện</a>
                         <p th:text="${book.introduceBook}"></p>
                     </div>
