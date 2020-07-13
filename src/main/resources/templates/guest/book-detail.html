@@ -1,10 +1,154 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
 </head>
 <body>
-this is book detail
+<div class="container">
+    <div class="row header">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Trang trủ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Thể loại <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sắp xếp</a>
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
+                    <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
+                           aria-label="Search">
+                    <input type="submit" value="tìm kiếm">
+                </form>
+                <a href="/#" style="color:black ">Đăng nhập</a>
+                <a href="/#" style="color:black ">Đăng ký</a>
+                <a href="/#" style="color:black ">quên mật khẩu</a>
+
+            </div>
+        </nav>
+    </div>
+    <!--    //header finished-->
+
+    <!--    phần thân hình ảnh-->
+    <div class="row">
+        <div class="col-sm-9">
+
+            <div class="row">
+                <div class="card-group col-sm-4">
+                    <div class="card">
+                        <img src="card-img-top" alt="Card image cap" th:src="@{${book.getImage()}}"><br>
+
+                        <th:block th:each="c:${category}">
+                            <p th:text="${c.name}"></p>
+                        </th:block>
+                        <p th:text="${book.statusBook}"></p>
+                        <p th:text="${book.readsBook}"></p>
+                    </div>
+                </div>
+                <div class="card-group col-sm-8">
+                    <div class="card">
+                        <h3 th:text="${book.nameBook}"></h3><br>
+                        <p>
+                            bạn có thể đăng nhập để có tính năng like,vote ,thêm vào truyện yêu thích
+                        </p><br>
+                        <a href="#">Đọc truyện</a>
+                        <p th:text="${book.introduceBook}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="list-group" th:each=" chapter: ${chapters}">
+
+                        <li class="list-group-item"> Chương <span
+                                th:text="${chapter.chapters}"></span><span>-</span><span
+                                th:text="${chapter.name}"></span></li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-3" id="sidebar">
+
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action active">
+                </button>
+                <button type="button" class="list-group-item list-group-item-action">Thể loại truyện
+                </button>
+                <button th:each="category:${categories}" type="button" class="list-group-item list-group-item-action">
+                    <a th:text="${category.name}" th:href="@{/category/{id}(id=${category.id})}"></a>
+                </button>
+
+            </div>
+            <div class="list-group">
+                <button type="button" class="list-group-item list-group-item-action active">
+                </button>
+                <a href="sign_in_form.jsp"> thông tin cá nhân</a><br>
+                <a href="sign_in_form.jsp"> tài khoản</a><br>
+
+            </div>
+        </div>
+    </div>
+
+
+    <!--footer-->
+    <div class="row">
+        <div class="col-sm-3">
+            <ul class="list-group">
+                <li class="list-group-item active">Về chúng tôi</li>
+                <li class="list-group-item">Giới thiệu chung</li>
+                <li class="list-group-item">Làm việc với chúng tôi</li>
+                <li class="list-group-item">Hoạt động cộng đồng</li>
+                <li class="list-group-item">Đối tác</li>
+            </ul>
+        </div>
+        <div class="col-sm-3">
+            <ul class="list-group">
+                <li class="list-group-item active">Dịch vụ</li>
+                <li class="list-group-item">Tặng quà và gửi quà</li>
+                <li class="list-group-item">Chuyển hàng nhanh</li>
+                <li class="list-group-item">Tải app trên điện thoại</li>
+
+            </ul>
+        </div>
+        <div class="col-sm-3">
+            <ul class="list-group">
+                <li class="list-group-item active">Hỗ trợ khách hàng</li>
+                <li class="list-group-item">Câu hỏi thường gặp</li>
+                <li class="list-group-item">Khách hàng thân thiết</li>
+                <li class="list-group-item">Thông tin giao hàng</li>
+                <li class="list-group-item">Phàn nàn-Khiếu nại</li>
+                <li class="list-group-item">Hình thức thanh toán</li>
+                <li class="list-group-item">Chính sách đổi trả</li>
+                <li class="list-group-item">Chính sách bảo mật thông tin</li>
+            </ul>
+        </div>
+
+        <div class="col-sm-3">
+            <ul class="list-group">
+                <li class="list-group-item active">Thông tin hữu ích</li>
+                <li class="list-group-item">Món ăn ngon</li>
+                <li class="list-group-item">Một số cách chế biến</li>
+                <li class="list-group-item">Cách rửa rau củ quả sạch khuẩn</li>
+                <li class="list-group-item">Cách trang trí món ăn ngon</li>
+                <li class="list-group-item">Góc nội trợ</li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

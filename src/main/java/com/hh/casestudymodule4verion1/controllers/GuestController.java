@@ -5,6 +5,7 @@ import com.hh.casestudymodule4verion1.models.Book;
 import com.hh.casestudymodule4verion1.models.Category;
 import com.hh.casestudymodule4verion1.services.BookService;
 import com.hh.casestudymodule4verion1.services.CategoryService;
+import com.hh.casestudymodule4verion1.services.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,9 @@ public class GuestController {
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private ChapterService chapterService;
+
     @GetMapping("/")
     public ModelAndView guestHome(@PageableDefault(size = 9) Pageable pageable) {
         Page<Book> bookPages = bookService.getAllBook(pageable);
@@ -35,6 +39,7 @@ public class GuestController {
         ModelAndView modelAndView = new ModelAndView("guest/home");
         modelAndView.addObject("bookList", bookPages);
         modelAndView.addObject("categoryList", categoryList);
+
         return modelAndView;
     }
 
@@ -54,12 +59,14 @@ public class GuestController {
     public ModelAndView bookDetail(@PathVariable Long id) {
         ModelAndView modelAndView=null;
         Optional<Book> book= bookService.findById(id);
-        if (book.get()==null){
-            modelAndView=new ModelAndView("error-404");
+        if (!book.isPresent()){
+            modelAndView=new ModelAndView("/error-404");
             return modelAndView;
         }
-        return new ModelAndView("guest/book-detail", "book",book);
+        modelAndView= new ModelAndView("guest/book-detail", "book",book.get());
+        modelAndView.addObject("categories",categoryService.getCategoriesByBook(book.get()));
+        modelAndView.addObject("chapters",chapterService.getChaptersByBook(book.get()));
+        return modelAndView;
     }
-
 
 }
