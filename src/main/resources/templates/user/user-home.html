@@ -88,14 +88,14 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" th:href="@{'/'(page=${bookList.number - 1})}"
+                        <a class="page-link" th:href="@{'/user'(page=${bookList.number - 1})}"
                            th:if="${bookList.hasPrevious()}">Previous</a>
                     </li>
                     <li class="page-item">
                         <span th:text="${bookList.number + 1}"></span>/<span th:text="${bookList.totalPages}"></span>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" th:href="@{'/'(page=${bookList.number + 1})}"
+                        <a class="page-link" th:href="@{'/user'(page=${bookList.number + 1})}"
                            th:if="${bookList.hasNext()}">Next</a>
                     </li>
                 </ul>
