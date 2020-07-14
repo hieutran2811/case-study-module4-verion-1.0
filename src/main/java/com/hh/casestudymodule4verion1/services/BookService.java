@@ -17,4 +17,10 @@ public interface BookService {
     List<Book> findBooksByCategory(Category category);
 
     void save(Book book);
+
+    Book increaseLike(Book book);
+
+    Book decreaseLike(Book book);
+
+
 }

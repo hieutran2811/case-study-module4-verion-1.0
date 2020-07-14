@@ -38,5 +38,19 @@ public class BookServiceImpl implements BookService {
         bookRepository.save(book);
     }
 
+    @Override
+    public Book increaseLike(Book book) {
+        book.setLikeBook(book.getLikeBook()+1);
+        bookRepository.save(book);
+        return book;
+    }
+
+    @Override
+    public Book decreaseLike(Book book) {
+        book.setLikeBook(book.getLikeBook()-1);
+        bookRepository.save(book);
+        return book;
+    }
+
 
 }

@@ -82,7 +82,7 @@
                         </select>
                         <button onclick="vote()">Vote</button>
                         <br>
-                        <p >likes</p>
+                        <p th:text="${book.likeBook}" id="like"></p><p >likes</p>
                         <button onclick="like()">Like </button>
 
                     </div>
@@ -216,12 +216,12 @@
             url: 'http://localhost:8080/user/api/book/saveComment/',
             type: 'POST',
             data: JSON.stringify(comment),
-            success: likeSuccess,
+            success: saveComment,
             error: fail
         });
     }
 
-    function likeSuccess() {
+    function saveComment() {
         let id = document.getElementById("bookId").value;
         $.ajax({
             url: 'http://localhost:8080/user/api/book/getAllComment/' + id,
@@ -306,6 +306,16 @@
 
     //function like
     function like() {
+
+        let likeStatus = {
+
+            account: {
+                id: accountId
+            },
+            book: {
+                id: bookId
+            }
+        };
         $.ajax({
             headers: {
                 'Accept': 'application/json',
@@ -313,10 +323,23 @@
             },
             url: 'http://localhost:8080/user/api/book/saveLike/',
             type: 'POST',
-            success: voteSuccess,
+            data: JSON.stringify(likeStatus),
+            success: likeSuccess,
             error: fail
         });
+    }
+    function likeSuccess() {
+        let id = document.getElementById("bookId").value;
+        $.ajax({
+            url: 'http://localhost:8080/user/api/book/getLike/' + id,
+            type: 'GET',
 
+            success: showLikes,
+            fail: fail
+        });
+    }
+    function showLikes(response) {
+        document.getElementById("like").innerHTML=response;
     }
 
 </script>
