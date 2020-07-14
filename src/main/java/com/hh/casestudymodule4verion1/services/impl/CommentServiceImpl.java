@@ -25,18 +25,18 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getAllCommentByBook(Book book) {
         return commentRepository.findAllByBook(book);
     }
-    @Override
-    public List<Comment> getContentComment(List<Comment> list){
-        List<Comment> list1=new ArrayList<>();
-        for (int i = 0; i <list.size() ; i++) {
-            String content=list.get(i).getContent();
-            Timestamp timestamp=list.get(i).getPostTime();
-            String author=list.get(i).getAccount().getName();
-
-            list1.add(new Comment(content,timestamp,author));
-
-        }
-        return list1;
-
-    }
+//    @Override
+//    public List<Comment> getContentComment(List<Comment> list){
+//        List<Comment> list1=new ArrayList<>();
+//        for (int i = 0; i <list.size() ; i++) {
+//            String content=list.get(i).getContent();
+//            Timestamp timestamp=list.get(i).getPostTime();
+//            String author=list.get(i).getAccount().getName();
+//
+//            list1.add(new Comment(content,timestamp,author));
+//
+//        }
+//        return list1;
+//
+//    }
 }

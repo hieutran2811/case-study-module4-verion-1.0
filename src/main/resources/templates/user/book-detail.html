@@ -207,8 +207,9 @@
             type: 'GET',
 
             success: showCommentList,
-            fail:fail()
+            fail:fail
         });
+        // document.getElementById("comments").value="";
     }
 
     function fail() {
@@ -221,6 +222,7 @@
         <tr>
                <th>comment</th>
                <th>author</th>
+               <th>postTime</th>
         </tr>
         </thead>
         <tbody>`;
@@ -228,13 +230,14 @@
             tableContent += getCommentRow(response[i]);
         }
         tableContent += `</tbody>`;
-        document.getElementById('comments').innerHTML = tableContent;
+        document.getElementById("comments").innerHTML = tableContent;
     }
 
     function getCommentRow(comment) {
         return `<tr>
                     <td>${comment.content}</td>
-                    <td>${comment.account.name}</td>
+                     <td>${comment.authorName}</td>
+                    <td>${comment.postTime}</td>
                 </tr>`;
     }
 </script>

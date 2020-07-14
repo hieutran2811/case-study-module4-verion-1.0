@@ -8,5 +8,5 @@ public interface CommentService {
     void save(Comment comment);
 
     List<Comment> getAllCommentByBook(Book book);
-    List<Comment> getContentComment(List<Comment> list);
+//    List<Comment> getContentComment(List<Comment> list);
 }
