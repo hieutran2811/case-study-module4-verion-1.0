@@ -31,6 +31,17 @@ public class Account {
     @OneToMany
     private List<Comment> comments;
 
+    @OneToMany
+    private List<LikeStatus> likes;
+
+    public List<LikeStatus> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<LikeStatus> likes) {
+        this.likes = likes;
+    }
+
     public List<Comment> getComments() {
         return comments;
     }

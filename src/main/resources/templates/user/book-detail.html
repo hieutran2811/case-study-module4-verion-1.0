@@ -64,7 +64,27 @@
                         <h3 th:text="${book.nameBook}"></h3><br>
                         ...
                         <a href="#">Đọc truyện</a>
+                        <p>rating vote: </p><p id="ratingVote" th:text="${book.voteBook}"> </p>
                         <p th:text="${book.introduceBook}"></p>
+
+                        <label for="vote">Vote here:</label>
+                        <select name="vote" id="vote">
+                            <option value="1">1 star</option>
+                            <option value="2">2 star</option>
+                            <option value="3">3 star</option>
+                            <option value="4">4 star</option>
+                            <option value="5">5 star</option>
+                            <option value="6">6 star</option>
+                            <option value="7">7 star</option>
+                            <option value="8">8 star</option>
+                            <option value="9">9 star</option>
+                            <option value="10">10 star</option>
+                        </select>
+                        <button onclick="vote()">Vote</button>
+                        <br>
+                        <p th:text="${book.likeBook}" id="like"></p><p >likes</p>
+                        <button onclick="like()">Like </button>
+
                     </div>
                 </div>
             </div>
@@ -75,7 +95,6 @@
                         <li class="list-group-item"> Chương <span
                                 th:text="${chapter.chapters}"></span><span>-</span><span
                                 th:text="${chapter.name}"></span></li>
-
                     </ul>
                 </div>
             </div>
@@ -174,10 +193,12 @@
     </div>
 </div>
 <script>
+    let accountId = document.getElementById("accountId").value;
+    let bookId = document.getElementById("bookId").value;
+
+    //functions like
     function addComment() {
         let content = document.getElementById("content").value;
-        let accountId = document.getElementById("accountId").value;
-        let bookId = document.getElementById("bookId").value;
         let comment = {
             content: content,
             account: {
@@ -195,19 +216,19 @@
             url: 'http://localhost:8080/user/api/book/saveComment/',
             type: 'POST',
             data: JSON.stringify(comment),
-            success: success,
+            success: saveComment,
             error: fail
         });
     }
 
-    function success() {
+    function saveComment() {
         let id = document.getElementById("bookId").value;
         $.ajax({
             url: 'http://localhost:8080/user/api/book/getAllComment/' + id,
             type: 'GET',
 
             success: showCommentList,
-            fail:fail
+            fail: fail
         });
         // document.getElementById("comments").value="";
     }
@@ -218,7 +239,7 @@
 
     function showCommentList(response) {
         //show list comment here
-        let tableContent =`<thead>
+        let tableContent = `<thead>
         <tr>
                <th>comment</th>
                <th>author</th>
@@ -240,6 +261,87 @@
                     <td>${comment.postTime}</td>
                 </tr>`;
     }
+
+    // functions vote
+
+    function vote() {
+        let star = document.getElementById("vote").value;
+        let vote = {
+            stars: star,
+            account: {
+                id: accountId
+            },
+            book: {
+                id: bookId
+            }
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: 'http://localhost:8080/user/api/book/saveVote/',
+            type: 'POST',
+            data: JSON.stringify(vote),
+            success: voteSuccess,
+            error: fail
+        });
+
+    }
+
+    function voteSuccess() {
+        let id = document.getElementById("bookId").value;
+        $.ajax({
+            url: 'http://localhost:8080/user/api/book/getRatingVote/' + id,
+            type: 'GET',
+
+            success: showRatingVote,
+            fail: fail
+        });
+    }
+
+    function showRatingVote(response) {
+        document.getElementById("ratingVote").innerHTML=response;
+    }
+
+    //function like
+    function like() {
+
+        let likeStatus = {
+
+            account: {
+                id: accountId
+            },
+            book: {
+                id: bookId
+            }
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: 'http://localhost:8080/user/api/book/saveLike/',
+            type: 'POST',
+            data: JSON.stringify(likeStatus),
+            success: likeSuccess,
+            error: fail
+        });
+    }
+    function likeSuccess() {
+        let id = document.getElementById("bookId").value;
+        $.ajax({
+            url: 'http://localhost:8080/user/api/book/getLike/' + id,
+            type: 'GET',
+
+            success: showLikes,
+            fail: fail
+        });
+    }
+    function showLikes(response) {
+        document.getElementById("like").innerHTML=response;
+    }
+
 </script>
 </body>
 </html>

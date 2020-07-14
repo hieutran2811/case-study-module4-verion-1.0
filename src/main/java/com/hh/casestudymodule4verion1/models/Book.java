@@ -50,8 +50,19 @@ public class Book {
     @OneToMany
     private List<Comment> comments;
 
-    @OneToOne
-    private Vote votes;
+
+    @OneToMany
+    private List<Vote> votes;
+    @OneToMany
+    private List<LikeStatus> likes;
+
+    public List<LikeStatus> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<LikeStatus> likes) {
+        this.likes = likes;
+    }
 
     public Long getId() {
         return id;
@@ -141,11 +152,11 @@ public class Book {
         this.comments = comments;
     }
 
-    public Vote getVotes() {
+    public List<Vote> getVotes() {
         return votes;
     }
 
-    public void setVotes(Vote votes) {
+    public void setVotes(List<Vote> votes) {
         this.votes = votes;
     }
 
