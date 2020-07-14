@@ -52,5 +52,10 @@ public class BookServiceImpl implements BookService {
         return book;
     }
 
+    @Override
+    public List<Book> getBooksByName(String name) {
+        return bookRepository.findBooksByNameBook(name);
+    }
+
 
 }

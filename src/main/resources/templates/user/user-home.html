@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -28,13 +28,11 @@
                 </li>
 
             </ul>
-            <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
-                <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
-                       aria-label="Search">
-                <input type="submit" value="tìm kiếm">
-            </form>
-<!--            <a href="/#" style="color:black ">Đăng nhập</a>-->
-<!--            <a href="/#" style="color:black ">Đăng ký</a>-->
+            <!--            <form class="form-inline my-2 my-lg-0" method="post" action="/search" >-->
+            <input id="search" class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Truyện,tác giả..."
+                   aria-label="Search">
+            <button onclick="search()">TÌm Kiếm</button>
+
             <a href="/#" style="color:black ">quên mật khẩu</a>
 
         </div>
@@ -146,6 +144,23 @@
             </ul>
         </div>
     </div>
+    <script>
+        function search() {
+            let searchValue = document.getElementById("search").value;
+            $.ajax({
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                url: 'http://localhost:8080/search/',
+                type: 'GET',
+                data: JSON.stringify(searchValue),
+                success: alert("ok"),
+                error: alert("failed")
+            });
+
+        }
+    </script>
 
 </div>
 </body>

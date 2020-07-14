@@ -22,5 +22,7 @@ public interface BookService {
 
     Book decreaseLike(Book book);
 
+    List<Book> getBooksByName(String name);
+
 
 }

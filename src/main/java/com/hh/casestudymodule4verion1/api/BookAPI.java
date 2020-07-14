@@ -7,9 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
+
 import java.util.Optional;
 import java.util.List;
 

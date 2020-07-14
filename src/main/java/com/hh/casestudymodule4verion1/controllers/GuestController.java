@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
@@ -90,5 +91,13 @@ public class GuestController {
         modelAndView.addObject("categories", categoryService.getCategoriesByBook(book.get()));
         modelAndView.addObject("chapters", chapterService.getChaptersByBook(book.get()));
         return modelAndView;
+    }
+
+    @GetMapping("/search")
+    public ModelAndView search(@RequestParam(value = "searchValue") String string){
+        ModelAndView modelAndView=new ModelAndView("search-result","bookList",bookService.getBooksByName(string));
+        return modelAndView;
+
+
     }
 }

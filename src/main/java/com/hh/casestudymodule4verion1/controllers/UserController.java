@@ -11,12 +11,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
 import java.security.Principal;
-import java.sql.Timestamp;
+
 import java.util.Optional;
 
 @Controller
@@ -40,6 +40,7 @@ public class UserController {
         modelAndView = new ModelAndView("user/user-home");
         modelAndView.addObject("bookList", bookService.getAllBook(pageable));
         modelAndView.addObject("categoryList", categoryService.getAllCategory());
+        modelAndView.addObject("book",new Book());
         return modelAndView;
 
     }
@@ -77,4 +78,9 @@ public class UserController {
         modelAndView = new ModelAndView("user/chapter", "chapter",chapters);
         return modelAndView;
     }
+
+//    @GetMapping("/search")
+//    public ModelAttribute search(){
+//
+//    }
 }
