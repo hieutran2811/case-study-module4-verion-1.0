@@ -15,4 +15,6 @@ public interface BookService {
     Optional<Book> getBookById(Long id);
 
     List<Book> findBooksByCategory(Category category);
+
+    void save(Book book);
 }

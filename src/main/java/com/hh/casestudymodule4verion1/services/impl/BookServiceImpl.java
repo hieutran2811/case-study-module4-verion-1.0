@@ -33,5 +33,10 @@ public class BookServiceImpl implements BookService {
         return bookRepository.findAllByCategoryList(category);
     }
 
+    @Override
+    public void save(Book book) {
+        bookRepository.save(book);
+    }
+
 
 }

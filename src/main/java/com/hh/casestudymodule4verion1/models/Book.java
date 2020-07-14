@@ -53,16 +53,16 @@ public class Book {
 
     @OneToMany
     private List<Vote> votes;
-//    @OneToMany
-//    private List<Like> likes;
-//
-//    public List<Like> getLikes() {
-//        return likes;
-//    }
-//
-//    public void setLikes(List<Like> likes) {
-//        this.likes = likes;
-//    }
+    @OneToMany
+    private List<LikeStatus> likes;
+
+    public List<LikeStatus> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<LikeStatus> likes) {
+        this.likes = likes;
+    }
 
     public Long getId() {
         return id;

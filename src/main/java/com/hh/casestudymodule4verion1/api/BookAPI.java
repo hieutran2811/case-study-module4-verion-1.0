@@ -66,14 +66,39 @@ public class BookAPI {
     @PostMapping("/saveVote/")
     public void saveVote(@RequestBody Vote vote){
         Optional<Account> account = accountService.getAccountById(vote.getAccount().getId());
+
         Optional<Book> book = bookService.getBookById(vote.getBook().getId());
+
+
         if (account.isPresent()) {
             vote.setAccount(account.get());
         }
         if (book.isPresent()) {
             vote.setBook(book.get());
         }
-        voteService.save(vote);
+        Optional<Vote> vote1=voteService.getVotesByBookAndAccount(book.get(),account.get());
+        if (!vote1.isPresent()){
+            voteService.save(vote);
+            double ratingVote = voteService.getVotesByBook(book.get());//set rating vote trong db
+            book.get().setVoteBook(ratingVote);
+            bookService.save(book.get());
+
+        }
+
+    }
+
+    @GetMapping("/getRatingVote/{id}")
+    public double getRatingVote(@PathVariable Long id){
+        Optional<Book> book=bookService.getBookById(id);
+        if (book.isPresent()){
+            return voteService.getVotesByBook(book.get());
+        }
+       return 0;
+    }
+
+    @PostMapping("/saveLike/")
+    public void saveLike(){
+
     }
 
 }

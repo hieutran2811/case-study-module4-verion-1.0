@@ -64,6 +64,7 @@
                         <h3 th:text="${book.nameBook}"></h3><br>
                         ...
                         <a href="#">Đọc truyện</a>
+                        <p>rating vote: </p><p id="ratingVote" th:text="${book.voteBook}"> </p>
                         <p th:text="${book.introduceBook}"></p>
 
                         <label for="vote">Vote here:</label>
@@ -80,6 +81,9 @@
                             <option value="10">10 star</option>
                         </select>
                         <button onclick="vote()">Vote</button>
+                        <br>
+                        <p >likes</p>
+                        <button onclick="like()">Like </button>
 
                     </div>
                 </div>
@@ -192,6 +196,7 @@
     let accountId = document.getElementById("accountId").value;
     let bookId = document.getElementById("bookId").value;
 
+    //functions like
     function addComment() {
         let content = document.getElementById("content").value;
         let comment = {
@@ -257,6 +262,8 @@
                 </tr>`;
     }
 
+    // functions vote
+
     function vote() {
         let star = document.getElementById("vote").value;
         let vote = {
@@ -291,10 +298,24 @@
             success: showRatingVote,
             fail: fail
         });
-
     }
 
-    function showRatingVote() {
+    function showRatingVote(response) {
+        document.getElementById("ratingVote").innerHTML=response;
+    }
+
+    //function like
+    function like() {
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: 'http://localhost:8080/user/api/book/saveLike/',
+            type: 'POST',
+            success: voteSuccess,
+            error: fail
+        });
 
     }
 
