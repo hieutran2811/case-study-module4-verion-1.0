@@ -27,13 +27,14 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
 
     @Override
     public Account getAccountByEmail(String email) {
-        return accountRepository.findAccountByEmail(email);
+        return accountRepository.findByEmail(email);
     }
 
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = this.getAccountByEmail(username);
+
         List<GrantedAuthority> roleList = new ArrayList<>();
         List<Role> roles = account.getRoles();
         for (Role r : roles) {

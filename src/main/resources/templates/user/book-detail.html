@@ -10,54 +10,73 @@
 </head>
 <body>
 <div class="container">
-    <!--    <div class="row">-->
-    <nav class="navbar  sticky-top  navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Trang trủ</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<!--    <div class="row header">-->
+        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
+            <a class="navbar-brand" href="#">Trang trủ</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Thể loại <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Sắp xếp</a>
-                </li>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">Thể loại <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sắp xếp</a>
+                    </li>
 
-            </ul>
-            <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
-                <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
-                       aria-label="Search">
-                <input type="submit" value="tìm kiếm">
-            </form>
-            <a href="/login" style="color:black ">Đăng nhập</a>
-            <a href="/#" style="color:black ">Đăng ký</a>
-            <a href="/#" style="color:black ">quên mật khẩu</a>
+                </ul>
+                <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
+                    <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
+                           aria-label="Search">
+                    <input type="submit" value="tìm kiếm">
+                </form>
+<!--                <a href="/login" style="color:black ">Đăng nhập</a>-->
+<!--                <a href="/#" style="color:black ">Đăng ký</a>-->
+                <a href="/#" style="color:black ">quên mật khẩu</a>
 
-        </div>
-    </nav>
-    <!--    </div>-->
+            </div>
+        </nav>
+<!--    </div>-->
     <!--    //header finished-->
 
     <!--    phần thân hình ảnh-->
     <div class="row">
         <div class="col-sm-9">
+
             <div class="row">
-                <th:block th:each="b: ${bookList}">
-                    <div class="card-group col-sm-4">
-                        <div class="card">
-                            <a th:href="@{/book/{id}(id=${b.id})}">
-                                <img src="card-img-top" alt="Card image cap" th:src="@{${b.image}}">
-                            </a>
-                            <div class="card-body">
-                                <p th:text="${b.nameBook}"></p>
-                            </div>
-                        </div>
+                <div class="card-group col-sm-4">
+                    <div class="card">
+                        <img src="card-img-top" alt="Card image cap" th:src="@{${book.getImage()}}"><br>
+
+                        <th:block th:each="c:${category}">
+                            <p th:text="${c.name}"></p>
+                        </th:block>
+                        <p th:text="${book.statusBook}"></p>
+                        <p th:text="${book.readsBook}"></p>
                     </div>
-                </th:block>
+                </div>
+                <div class="card-group col-sm-8">
+                    <div class="card">
+                        <h3 th:text="${book.nameBook}"></h3><br>
+                        ...
+                        <a href="#">Đọc truyện</a>
+                        <p th:text="${book.introduceBook}"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <ul class="list-group" th:each=" chapter: ${chapters}">
+
+                        <li class="list-group-item"> Chương <span
+                                th:text="${chapter.chapters}"></span><span>-</span><span
+                                th:text="${chapter.name}"></span></li>
+
+                    </ul>
+                </div>
             </div>
         </div>
         <div class="col-sm-3" id="sidebar">
@@ -67,9 +86,10 @@
                 </button>
                 <button type="button" class="list-group-item list-group-item-action">Thể loại truyện
                 </button>
-                <button th:each="category:${categoryList}" type="button" class="list-group-item list-group-item-action">
+                <button th:each="category:${categories}" type="button" class="list-group-item list-group-item-action">
                     <a th:text="${category.name}" th:href="@{/category/{id}(id=${category.id})}"></a>
                 </button>
+
             </div>
             <div class="list-group">
                 <button type="button" class="list-group-item list-group-item-action active">
@@ -81,27 +101,6 @@
         </div>
     </div>
 
-
-    <!--    phần thân sidebar-->
-    <div class="row">
-        <div class="col-sm-12">
-            <nav aria-label="Page navigation example">
-                <ul class="pagination">
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{'/'(page=${bookList.number - 1})}"
-                           th:if="${bookList.hasPrevious()}">Previous</a>
-                    </li>
-                    <li class="page-item">
-                        <span th:text="${bookList.number + 1}"></span>/<span th:text="${bookList.totalPages}"></span>
-                    </li>
-                    <li class="page-item">
-                        <a class="page-link" th:href="@{'/'(page=${bookList.number + 1})}"
-                           th:if="${bookList.hasNext()}">Next</a>
-                    </li>
-                </ul>
-            </nav>
-        </div>
-    </div>
 
     <!--footer-->
     <div class="row">
@@ -135,6 +134,7 @@
                 <li class="list-group-item">Chính sách bảo mật thông tin</li>
             </ul>
         </div>
+
         <div class="col-sm-3">
             <ul class="list-group">
                 <li class="list-group-item active">Thông tin hữu ích</li>

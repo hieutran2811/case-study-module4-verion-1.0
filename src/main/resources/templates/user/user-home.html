@@ -33,8 +33,8 @@
                        aria-label="Search">
                 <input type="submit" value="tìm kiếm">
             </form>
-            <a href="/login" style="color:black ">Đăng nhập</a>
-            <a href="/#" style="color:black ">Đăng ký</a>
+<!--            <a href="/#" style="color:black ">Đăng nhập</a>-->
+<!--            <a href="/#" style="color:black ">Đăng ký</a>-->
             <a href="/#" style="color:black ">quên mật khẩu</a>
 
         </div>
@@ -49,7 +49,7 @@
                 <th:block th:each="b: ${bookList}">
                     <div class="card-group col-sm-4">
                         <div class="card">
-                            <a th:href="@{/book/{id}(id=${b.id})}">
+                            <a th:href="@{/user/book/{id}(id=${b.id})}">
                                 <img src="card-img-top" alt="Card image cap" th:src="@{${b.image}}">
                             </a>
                             <div class="card-body">
@@ -68,7 +68,7 @@
                 <button type="button" class="list-group-item list-group-item-action">Thể loại truyện
                 </button>
                 <button th:each="category:${categoryList}" type="button" class="list-group-item list-group-item-action">
-                    <a th:text="${category.name}" th:href="@{/category/{id}(id=${category.id})}"></a>
+                    <a th:text="${category.name}" th:href="@{user/category/{id}(id=${category.id})}"></a>
                 </button>
             </div>
             <div class="list-group">
@@ -88,14 +88,14 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" th:href="@{'/'(page=${bookList.number - 1})}"
+                        <a class="page-link" th:href="@{'/user'(page=${bookList.number - 1})}"
                            th:if="${bookList.hasPrevious()}">Previous</a>
                     </li>
                     <li class="page-item">
                         <span th:text="${bookList.number + 1}"></span>/<span th:text="${bookList.totalPages}"></span>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" th:href="@{'/'(page=${bookList.number + 1})}"
+                        <a class="page-link" th:href="@{'/user'(page=${bookList.number + 1})}"
                            th:if="${bookList.hasNext()}">Next</a>
                     </li>
                 </ul>
