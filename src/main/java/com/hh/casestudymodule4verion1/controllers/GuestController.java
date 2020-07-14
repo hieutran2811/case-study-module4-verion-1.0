@@ -68,5 +68,4 @@ public class GuestController {
         modelAndView.addObject("chapters",chapterService.getChaptersByBook(book.get()));
         return modelAndView;
     }
-
 }
