@@ -37,7 +37,7 @@ public class Book {
         this.nameBook = nameBook;
     }
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
 
 

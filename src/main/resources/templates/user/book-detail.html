@@ -51,8 +51,8 @@
 
                     <div class="card">
                         <img src="card-img-top" alt="Card image cap" th:src="@{${book.getImage()}}"><br>
-
-                        <th:block th:each="c:${category}">
+                        <input th:value="${book.id}" type="hidden" id="bookId">
+                        <th:block th:each="c:${categories}">
                             <p th:text="${c.name}"></p>
                         </th:block>
                         <p th:text="${book.statusBook}"></p>
@@ -101,14 +101,30 @@
             </div>
         </div>
     </div>
+    <div>
+        <textarea id="content"></textarea>
+        <input th:value="${account.id}" type="hidden" id="accountId">
+        <button onclick="addComment()">Comment</button>
+    </div>
     <div class="row">
-        <form action="/user/saveComment" method="post">
-            <textarea id="comment"></textarea>
-            <input th:value="${account.id}" id="accountId" type="hidden">
-            <input th:value="${book.id}" id="bookId" type="hidden">
-            <button>Comment</button>
-        </form>
-
+        <table id="comments">
+            <thead>
+            <tr>
+                <th>comment</th>
+                <th>author</th>
+                <th>post time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="c : ${comments}">
+                <tr>
+                    <td th:text="${c.content}"></td>
+                    <td th:text="${c.getAccount().name}"></td>
+                    <td th:text="${c.postTime}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
     </div>
 
 
@@ -157,39 +173,70 @@
         </div>
     </div>
 </div>
-<!--<script>-->
-<!--    function addComment() {-->
-<!--        let content = document.getElementById("comment").value;-->
-<!--        let accountId = document.getElementById("accountId").value;-->
-<!--        let bookId = document.getElementById("bookId").value;-->
-<!--        let comment = {-->
-<!--            content: content,-->
-<!--            account: {-->
-<!--                id: accountId-->
-<!--            },-->
-<!--            book: {-->
-<!--                id: bookId-->
-<!--            }-->
-<!--        };-->
-<!--        $.ajax({-->
-<!--            headers: {-->
-<!--                'Accept': 'application/json',-->
-<!--                'Content-Type': 'application/json'-->
-<!--            },-->
-<!--            url: 'http://localhost:8080/user/api/book/saveComment',-->
-<!--            type: 'POST',-->
-<!--            data: JSON.stringify(comment),-->
-<!--            success: success,-->
-<!--            error: fail-->
-<!--        });-->
-<!--    }-->
-<!--    function success() {-->
-<!--        alert("saved");-->
-<!--    }-->
-<!--    function fail() {-->
-<!--        alert("failed");-->
-<!--    }-->
+<script>
+    function addComment() {
+        let content = document.getElementById("content").value;
+        let accountId = document.getElementById("accountId").value;
+        let bookId = document.getElementById("bookId").value;
+        let comment = {
+            content: content,
+            account: {
+                id: accountId
+            },
+            book: {
+                id: bookId
+            }
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: 'http://localhost:8080/user/api/book/saveComment/',
+            type: 'POST',
+            data: JSON.stringify(comment),
+            success: success,
+            error: fail
+        });
+    }
 
-<!--</script>-->
+    function success() {
+        let id = document.getElementById("bookId").value;
+        $.ajax({
+            url: 'http://localhost:8080/user/api/book/getAllComment/' + id,
+            type: 'GET',
+
+            success: showCommentList,
+            fail:fail()
+        });
+    }
+
+    function fail() {
+        alert("comment fail!!! try again");
+    }
+
+    function showCommentList(response) {
+        //show list comment here
+        let tableContent =`<thead>
+        <tr>
+               <th>comment</th>
+               <th>author</th>
+        </tr>
+        </thead>
+        <tbody>`;
+        for (let i = 0; i < response.length; i++) {
+            tableContent += getCommentRow(response[i]);
+        }
+        tableContent += `</tbody>`;
+        document.getElementById('comments').innerHTML = tableContent;
+    }
+
+    function getCommentRow(comment) {
+        return `<tr>
+                    <td>${comment.content}</td>
+                    <td>${comment.account.name}</td>
+                </tr>`;
+    }
+</script>
 </body>
 </html>

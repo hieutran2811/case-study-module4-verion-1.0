@@ -12,7 +12,7 @@ public class Vote {
 
     private int stars;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
 
     @OneToOne

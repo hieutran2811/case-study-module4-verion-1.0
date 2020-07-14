@@ -21,7 +21,7 @@ public class Chapter {
 
     private int chapters;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Book book;
 
     public Book getBook() {

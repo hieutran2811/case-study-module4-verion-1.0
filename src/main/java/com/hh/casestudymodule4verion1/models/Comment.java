@@ -16,11 +16,20 @@ public class Comment {
 
     private Timestamp postTime;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Book book;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
+
+    public Comment() {
+    }
+
+    public Comment(String content, Timestamp timestamp, String name) {
+        this.content=content;
+        this.postTime=timestamp;
+        this.account.setName(name);
+    }
 
     public Account getAccount() {
         return account;

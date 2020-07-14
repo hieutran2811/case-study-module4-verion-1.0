@@ -12,7 +12,6 @@ public class Category {
     private String name;
 
     @ManyToMany
-
     private List<Book> books;
 
     public List<Book> getBooks() {

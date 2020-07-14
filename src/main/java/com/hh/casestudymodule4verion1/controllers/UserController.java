@@ -11,7 +11,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-
+import java.util.List;
 import java.security.Principal;
 import java.sql.Timestamp;
 import java.util.Optional;
@@ -43,36 +43,24 @@ public class UserController {
 
     @GetMapping("/book/{id}")
     public ModelAndView bookDetail(@PathVariable Long id, Principal principal) {
+
         ModelAndView modelAndView = null;
         String email = principal.getName();
+
         Account account = accountService.getAccountByEmail(email);
         Optional<Book> book = bookService.getBookById(id);
         if (!book.isPresent()) {
             modelAndView = new ModelAndView("/error-404");
             return modelAndView;
         }
+        List<Comment> comments=commentService.getAllCommentByBook(book.get());
         modelAndView = new ModelAndView("user/book-detail", "book", book.get());
         modelAndView.addObject("categories", categoryService.getCategoriesByBook(book.get()));
         modelAndView.addObject("chapters", chapterService.getChaptersByBook(book.get()));
+
+      modelAndView.addObject("comments",comments);
         modelAndView.addObject("account", account);
         return modelAndView;
-    }
-
-    @PostMapping("/saveComment")
-    public void saveComment(@ModelAttribute Comment comment, Principal principal) {
-        String email = principal.getName();
-        Account account1 = accountService.getAccountByEmail(email);
-        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-//        Optional<Account> account=accountService.getAccountById(comment.getAccount().getId());
-        Optional<Book> book = bookService.getBookById(comment.getAccount().getId());
-        comment.setPostTime(timestamp);
-
-        comment.setAccount(account1);
-
-        if (book.isPresent()) {
-            comment.setBook(book.get());
-        }
-        commentService.save(comment);
     }
 
 }
