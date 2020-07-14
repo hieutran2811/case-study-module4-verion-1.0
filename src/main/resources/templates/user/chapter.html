@@ -1,10 +1,88 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+
 </head>
 <body>
+<div class="container">
+    <!--    <div class="row header">-->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Trang trủ</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Thể loại <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sắp xếp</a>
+                </li>
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
+                <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
+                       aria-label="Search">
+                <input type="submit" value="tìm kiếm">
+            </form>
+            <!--                <a href="/login" style="color:black ">Đăng nhập</a>-->
+            <!--                <a href="/#" style="color:black ">Đăng ký</a>-->
+            <a href="/#" style="color:black ">quên mật khẩu</a>
+
+        </div>
+    </nav>
+    <!--    </div>-->
+    <!--    //header finished-->
+
+    <!--    phần thân hình ảnh-->
+    <div class="row">
+        <table id="chapter">
+            <thead>
+            <tr>
+                <th>danh sách truyện</th>
+                <th>author</th>
+                <th>post time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="c : ${chapter}">
+                <tr>
+                    <td th:text="${c.chapters}"></td>
+                    <td th:text="${c.name}"></td>
+                    <td th:text="${c.postTime}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/'(page=${chapter.number - 1})}"
+                           th:if="${chapter.hasPrevious()}">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <span th:text="${chapter.number + 1}"></span>/<span th:text="${chapter.totalPages}"></span>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/'(page=${chapter.number + 1})}"
+                           th:if="${chapter.hasNext()}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>
