@@ -41,12 +41,47 @@
     </nav>
     <!--    </div>-->
     <!--    //header finished-->
-    <div class="row">
-        <!--      TODO  ...-->
-    </div>
+
     <!--    phần thân hình ảnh-->
     <div class="row">
         <div class="col-sm-9">
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input placeholder="nhập tên tác giả">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card-group col-sm-3">
+                        <select name="vote" id="category">
+                            <option value="1">1 star</option>
+                            <option value="2">2 star</option>
+                            <option value="3">3 star</option>
+
+                        </select>
+                    </div>
+                    <div class="card-group col-sm-3">
+                        <select name="vote" id="status">
+                            <option value="1">1 star</option>
+                            <option value="2">2 star</option>
+                            <option value="3">3 star</option>
+
+                        </select>
+                    </div>
+                    <div class="card-group col-sm-3">
+                        <select name="vote" id="reads">
+                            <option value="1">1 star</option>
+                            <option value="2">2 star</option>
+                            <option value="3">3 star</option>
+
+                        </select>
+                    </div>
+                    <div class="card-group col-sm-3">
+                        <button> Lọc</button>
+                    </div>
+                </div>
+
+            </div>
             <div class="row">
                 <th:block th:each="b: ${bookList}">
                     <div class="card-group col-sm-4">

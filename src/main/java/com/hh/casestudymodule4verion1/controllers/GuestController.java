@@ -97,7 +97,5 @@ public class GuestController {
     public ModelAndView search(@RequestParam(value = "searchValue") String string){
         ModelAndView modelAndView=new ModelAndView("search-result","bookList",bookService.getBooksByName(string));
         return modelAndView;
-
-
     }
 }
