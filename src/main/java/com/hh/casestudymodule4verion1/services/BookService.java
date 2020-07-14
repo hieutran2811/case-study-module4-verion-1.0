@@ -12,7 +12,7 @@ public interface BookService {
 
     Page<Book> getAllBook(Pageable pageable);
 
-    Optional<Book> findById(Long id);
+    Optional<Book> getBookById(Long id);
 
     List<Book> findBooksByCategory(Category category);
 }

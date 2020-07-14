@@ -10,36 +10,36 @@
 </head>
 <body>
 <div class="container">
-<!--    <div class="row header">-->
-        <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
-            <a class="navbar-brand" href="#">Trang trủ</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+    <!--    <div class="row header">-->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Trang trủ</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">Thể loại <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sắp xếp</a>
-                    </li>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Thể loại <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Sắp xếp</a>
+                </li>
 
-                </ul>
-                <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
-                    <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
-                           aria-label="Search">
-                    <input type="submit" value="tìm kiếm">
-                </form>
-<!--                <a href="/login" style="color:black ">Đăng nhập</a>-->
-<!--                <a href="/#" style="color:black ">Đăng ký</a>-->
-                <a href="/#" style="color:black ">quên mật khẩu</a>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
+                <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
+                       aria-label="Search">
+                <input type="submit" value="tìm kiếm">
+            </form>
+            <!--                <a href="/login" style="color:black ">Đăng nhập</a>-->
+            <!--                <a href="/#" style="color:black ">Đăng ký</a>-->
+            <a href="/#" style="color:black ">quên mật khẩu</a>
 
-            </div>
-        </nav>
-<!--    </div>-->
+        </div>
+    </nav>
+    <!--    </div>-->
     <!--    //header finished-->
 
     <!--    phần thân hình ảnh-->
@@ -48,8 +48,7 @@
 
             <div class="row">
                 <div class="card-group col-sm-4">
-                    <input th:value="${account.id}" id="accountId" type="hidden">
-                    <input th:value="${book.id}" id="bookId" type="hidden">
+
                     <div class="card">
                         <img src="card-img-top" alt="Card image cap" th:src="@{${book.getImage()}}"><br>
 
@@ -102,6 +101,15 @@
             </div>
         </div>
     </div>
+    <div class="row">
+        <form action="/user/saveComment" method="post">
+            <textarea id="comment"></textarea>
+            <input th:value="${account.id}" id="accountId" type="hidden">
+            <input th:value="${book.id}" id="bookId" type="hidden">
+            <button>Comment</button>
+        </form>
+
+    </div>
 
 
     <!--footer-->
@@ -148,42 +156,40 @@
             </ul>
         </div>
     </div>
-
 </div>
-<div class="row">
-    <textarea id="comment"></textarea>
-    <button onclick="addComment()">Comment</button>
+<!--<script>-->
+<!--    function addComment() {-->
+<!--        let content = document.getElementById("comment").value;-->
+<!--        let accountId = document.getElementById("accountId").value;-->
+<!--        let bookId = document.getElementById("bookId").value;-->
+<!--        let comment = {-->
+<!--            content: content,-->
+<!--            account: {-->
+<!--                id: accountId-->
+<!--            },-->
+<!--            book: {-->
+<!--                id: bookId-->
+<!--            }-->
+<!--        };-->
+<!--        $.ajax({-->
+<!--            headers: {-->
+<!--                'Accept': 'application/json',-->
+<!--                'Content-Type': 'application/json'-->
+<!--            },-->
+<!--            url: 'http://localhost:8080/user/api/book/saveComment',-->
+<!--            type: 'POST',-->
+<!--            data: JSON.stringify(comment),-->
+<!--            success: success,-->
+<!--            error: fail-->
+<!--        });-->
+<!--    }-->
+<!--    function success() {-->
+<!--        alert("saved");-->
+<!--    }-->
+<!--    function fail() {-->
+<!--        alert("failed");-->
+<!--    }-->
 
-</div>
-<script>
-    function addComment() {
-        let content=document.getElementById("comment").value;
-        let accountId=document.getElementById("accountId").value;
-        let bookId=document.getElementById("bookId").value;
-        let comment ={
-            content:content,
-            account:{
-                id:accountId
-            },
-            book:{
-                id:bookId
-            }
-        };
-        $.ajax({
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            url: 'http://localhost:8080/api/blog/saveComment/',
-            type: 'POST',
-            data: JSON.stringify(comment),
-            success: success,
-            error: fail
-        });
-
-
-    }
-
-</script>
+<!--</script>-->
 </body>
 </html>

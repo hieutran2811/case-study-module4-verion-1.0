@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class AccountServiceImpl implements AccountService, UserDetailsService {
@@ -28,6 +29,11 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
     @Override
     public Account getAccountByEmail(String email) {
         return accountRepository.findByEmail(email);
+    }
+
+    @Override
+    public Optional<Account> getAccountById(Long id) {
+        return accountRepository.findById(id);
     }
 
 
