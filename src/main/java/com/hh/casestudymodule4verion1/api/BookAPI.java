@@ -4,9 +4,11 @@ import com.hh.casestudymodule4verion1.modelFake.CommentFake;
 import com.hh.casestudymodule4verion1.models.Account;
 import com.hh.casestudymodule4verion1.models.Book;
 import com.hh.casestudymodule4verion1.models.Comment;
+import com.hh.casestudymodule4verion1.models.Vote;
 import com.hh.casestudymodule4verion1.services.AccountService;
 import com.hh.casestudymodule4verion1.services.BookService;
 import com.hh.casestudymodule4verion1.services.CommentService;
+import com.hh.casestudymodule4verion1.services.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +21,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/user/api/book")
-public class CommentAPI {
+public class BookAPI {
 
     @Autowired
     private CommentService commentService;
@@ -27,6 +29,8 @@ public class CommentAPI {
     private AccountService accountService;
     @Autowired
     private BookService bookService;
+    @Autowired
+    private VoteService voteService;
 
 
     @PostMapping("/saveComment/")
@@ -57,6 +61,19 @@ public class CommentAPI {
             return list1;
         }
         return list1;
+    }
+
+    @PostMapping("/saveVote/")
+    public void saveVote(@RequestBody Vote vote){
+        Optional<Account> account = accountService.getAccountById(vote.getAccount().getId());
+        Optional<Book> book = bookService.getBookById(vote.getBook().getId());
+        if (account.isPresent()) {
+            vote.setAccount(account.get());
+        }
+        if (book.isPresent()) {
+            vote.setBook(book.get());
+        }
+        voteService.save(vote);
     }
 
 }

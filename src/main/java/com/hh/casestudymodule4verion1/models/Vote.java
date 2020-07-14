@@ -15,7 +15,7 @@ public class Vote {
     @ManyToOne(fetch = FetchType.LAZY)
     private Account account;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Book book;
 
     public Book getBook() {

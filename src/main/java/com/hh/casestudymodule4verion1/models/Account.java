@@ -29,7 +29,18 @@ public class Account {
     private List<Vote> votes;
 
     @OneToMany
+
     private List<Comment> comments;
+//    @OneToMany
+//    private List<Like> likes;
+//
+//    public List<Like> getLikes() {
+//        return likes;
+//    }
+//
+//    public void setLikes(List<Like> likes) {
+//        this.likes = likes;
+//    }
 
     public List<Comment> getComments() {
         return comments;
