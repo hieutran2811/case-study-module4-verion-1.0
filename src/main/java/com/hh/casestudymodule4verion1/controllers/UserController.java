@@ -3,12 +3,15 @@ package com.hh.casestudymodule4verion1.controllers;
 
 import com.hh.casestudymodule4verion1.models.Account;
 import com.hh.casestudymodule4verion1.models.Book;
+import com.hh.casestudymodule4verion1.models.Chapter;
 import com.hh.casestudymodule4verion1.models.Comment;
 import com.hh.casestudymodule4verion1.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import java.util.List;
@@ -62,5 +65,16 @@ public class UserController {
         modelAndView.addObject("account", account);
         return modelAndView;
     }
-
+    @GetMapping("/book/chapters/{id}")
+    public ModelAndView chapters(@PageableDefault(size = 30) Pageable pageable,@PathVariable Long id){
+        ModelAndView modelAndView;
+        Optional<Book> book = bookService.getBookById(id);
+        if (!book.isPresent()) {
+            modelAndView = new ModelAndView("/error-404");
+            return modelAndView;
+        }
+        Page<Chapter> chapters = chapterService.getChapterByBook(pageable,book.get());
+        modelAndView = new ModelAndView("user/chapter", "chapter",chapters);
+        return modelAndView;
+    }
 }
