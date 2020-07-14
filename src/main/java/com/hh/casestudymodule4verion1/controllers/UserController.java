@@ -1,7 +1,9 @@
 package com.hh.casestudymodule4verion1.controllers;
 
 
+import com.hh.casestudymodule4verion1.models.Account;
 import com.hh.casestudymodule4verion1.models.Book;
+import com.hh.casestudymodule4verion1.services.AccountService;
 import com.hh.casestudymodule4verion1.services.BookService;
 import com.hh.casestudymodule4verion1.services.CategoryService;
 import com.hh.casestudymodule4verion1.services.ChapterService;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -27,6 +30,8 @@ public class UserController {
 
     @Autowired
     private ChapterService chapterService;
+    @Autowired
+    private AccountService accountService;
 
     @GetMapping("")
     public ModelAndView userHome(@PageableDefault(9)Pageable pageable){
@@ -38,8 +43,10 @@ public class UserController {
 
     }
     @GetMapping("/book/{id}")
-    public ModelAndView bookDetail(@PathVariable Long id){
+    public ModelAndView bookDetail(@PathVariable Long id, Principal principal){
         ModelAndView modelAndView=null;
+        String email = principal.getName();
+        Account account = accountService.getAccountByEmail(email);
         Optional<Book> book= bookService.findById(id);
         if (!book.isPresent()){
             modelAndView=new ModelAndView("/error-404");
@@ -48,6 +55,7 @@ public class UserController {
         modelAndView= new ModelAndView("user/book-detail", "book",book.get());
         modelAndView.addObject("categories",categoryService.getCategoriesByBook(book.get()));
         modelAndView.addObject("chapters",chapterService.getChaptersByBook(book.get()));
+        modelAndView.addObject("account",account);
         return modelAndView;
     }
 

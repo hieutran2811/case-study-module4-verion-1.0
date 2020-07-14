@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
           integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
@@ -48,6 +48,8 @@
 
             <div class="row">
                 <div class="card-group col-sm-4">
+                    <input th:value="${account.id}" id="accountId" type="hidden">
+                    <input th:value="${book.id}" id="bookId" type="hidden">
                     <div class="card">
                         <img src="card-img-top" alt="Card image cap" th:src="@{${book.getImage()}}"><br>
 
@@ -148,5 +150,40 @@
     </div>
 
 </div>
+<div class="row">
+    <textarea id="comment"></textarea>
+    <button onclick="addComment()">Comment</button>
+
+</div>
+<script>
+    function addComment() {
+        let content=document.getElementById("comment").value;
+        let accountId=document.getElementById("accountId").value;
+        let bookId=document.getElementById("bookId").value;
+        let comment ={
+            content:content,
+            account:{
+                id:accountId
+            },
+            book:{
+                id:bookId
+            }
+        };
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: 'http://localhost:8080/api/blog/saveComment/',
+            type: 'POST',
+            data: JSON.stringify(comment),
+            success: success,
+            error: fail
+        });
+
+
+    }
+
+</script>
 </body>
 </html>
