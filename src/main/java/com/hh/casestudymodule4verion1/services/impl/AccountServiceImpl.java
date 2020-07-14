@@ -30,6 +30,11 @@ public class AccountServiceImpl implements AccountService, UserDetailsService {
         return accountRepository.findByEmail(email);
     }
 
+    @Override
+    public void save(Account account) {
+        accountRepository.save(account);
+    }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

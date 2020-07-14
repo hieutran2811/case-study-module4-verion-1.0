@@ -2,8 +2,11 @@ package com.hh.casestudymodule4verion1.security;
 
 import com.hh.casestudymodule4verion1.services.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -18,9 +21,23 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
+    @Qualifier("accountServiceImpl")
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    CustomSuccessHandler customSuccessHandler;
+
     @Bean
     public PasswordEncoder encoder(){
         return new BCryptPasswordEncoder(10);
+    }
+
+    @Autowired
+    public void configureGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
+        auth
+                .userDetailsService(userDetailsService)
+                .passwordEncoder(encoder());
     }
 
     @Autowired

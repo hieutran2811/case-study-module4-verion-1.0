@@ -31,6 +31,15 @@ public class Account {
     @OneToMany
     private List<Comment> comments;
 
+    public Account(String name, String email, String password) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Account() {
+    }
+
     public List<Comment> getComments() {
         return comments;
     }

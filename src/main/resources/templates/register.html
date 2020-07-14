@@ -1,0 +1,69 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>sign up</title>
+    <style>
+        th, td {
+            padding: 5px;
+        }
+        td span  {
+            font-size:90%;
+            font-style: italic;
+            color: red;
+        }
+        .error {
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<h2>Register</h2>
+
+<div th:if="${errorMessage != null}"
+     th:utext="${errorMessage}" class="error">...</div>
+
+<form th:action="@{/register}" th:object="${account}" method="POST">
+    <table>
+        <tr>
+            <td>User Name</td>
+            <td><input type="text" th:field="*{name}" /></td>
+<!--            <td>-->
+<!--                <span th:if="${#fields.hasErrors('userName')}" th:errors="*{name}">..</span>-->
+<!--            </td>-->
+        </tr>
+        <tr>
+            <td>Password</td>
+            <td><input type="password" th:field="*{password}" /> </td>
+<!--            <td>-->
+<!--                <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}">..</span>-->
+<!--            </td>-->
+        </tr>
+<!--        <tr>-->
+<!--            <td>Confirm</td>-->
+<!--            <td><input type="password" th:field="*{confirmPassword}" /> </td>-->
+<!--            <td>-->
+<!--                <span th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">..</span>-->
+<!--            </td>-->
+<!--        </tr>-->
+        <tr>
+            <td>Email</td>
+            <td><input type="text" th:field="*{email}" /> </td>
+<!--            <td>-->
+<!--                <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">..</span>-->
+<!--            </td>-->
+        </tr>
+        <tr>
+            <td>  <input type="submit" value="Submit" />&nbsp;</td>
+            <td>
+
+                <a th:href="@{/}">Cancel</a>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

@@ -6,4 +6,6 @@ public interface AccountService {
 
     Account getAccountByEmail(String email);
 
+    void save(Account account);
+
 }
