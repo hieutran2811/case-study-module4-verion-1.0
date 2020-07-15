@@ -22,5 +22,7 @@ public interface BookService {
 
     Book decreaseLike(Book book);
 
+    void remove(Book book);
+
 
 }

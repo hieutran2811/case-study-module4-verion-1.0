@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ChapterServiceImpl implements ChapterService {
@@ -24,5 +25,20 @@ public class ChapterServiceImpl implements ChapterService {
     @Override
     public Page<Chapter> getChapterByBook(Pageable pageable, Book book) {
         return chapterRepository.findChaptersByBook( pageable,book);
+    }
+
+    @Override
+    public void save(Chapter chapter) {
+        chapterRepository.save(chapter);
+    }
+
+    @Override
+    public Optional<Chapter> getChapterById(Long id) {
+        return chapterRepository.findById(id);
+    }
+
+    @Override
+    public void remove(Chapter chapter) {
+        chapterRepository.delete(chapter);
     }
 }
