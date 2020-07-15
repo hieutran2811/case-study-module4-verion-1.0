@@ -24,5 +24,7 @@ public interface BookService {
 
     List<Book> getBooksByName(String name);
 
+    void remove(Book book);
+
 
 }

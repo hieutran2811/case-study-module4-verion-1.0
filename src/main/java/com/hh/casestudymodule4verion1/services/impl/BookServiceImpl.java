@@ -53,6 +53,11 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
+    public void remove(Book book) {
+        bookRepository.delete(book);
+    }
+
+    @Override
     public List<Book> getBooksByName(String name) {
         return bookRepository.findBookByNameBook(name);
     }

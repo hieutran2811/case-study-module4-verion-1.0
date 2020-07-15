@@ -13,4 +13,6 @@ public interface ChapterService {
     List<Chapter> getChaptersByBook(Book book);
     Page<Chapter> getChaptersByBook(Pageable pageable, Book book);
     Optional<Chapter> getChapterById(Long id);
+    void save(Chapter chapter);
+    void remove(Chapter chapter);
 }

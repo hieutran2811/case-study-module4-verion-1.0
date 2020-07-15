@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Book</title>
+</head>
+<body>
+<h1>Edit book</h1>
+<!--<p>-->
+<!--    <a href="/customers">Customer list</a>-->
+<!--</p>-->
+<th:block th:if="${message}">
+    <p th:text="${message}"></p>
+</th:block>
+<form th:action="@{author/edit-book}" th:object="${book}" method="post">
+    <input th:type="hidden" name="id" th:field="*{id}">
+    <table>
+            <tr>
+                <td>Book name:</td>
+                <td><input type="text" th:field="*{nameBook}"/></td>
+            </tr>
+            <tr>
+                <td>Author:</td>
+                <td><input type="text" th:field="*{authorBook}"/></td>
+            </tr>
+            <tr>
+                <td>Image:</td>
+                <td><input type="text" th:field="*{image}"/></td>
+            </tr>
+            <tr>
+                <td>IntroduceBook:</td>
+                <td><input type="text" th:field="*{introduceBook}"/></td>
+            </tr>
+        <tr>
+            <td></td>
+            <td><input type="submit" value="Update customer"></td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>
