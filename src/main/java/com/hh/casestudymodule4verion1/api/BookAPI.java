@@ -27,6 +27,9 @@ public class BookAPI {
     @Autowired
     private LikeService likeService;
 
+    @Autowired
+    private CategoryService categoryService;
+
 
     @PostMapping("/saveComment/")
     public void saveComment(@RequestBody Comment comment) {
@@ -124,5 +127,15 @@ public class BookAPI {
             return book.get().getLikeBook();
         }
         return 0;
+    }
+
+    @PostMapping("/search")
+    public List<Book> getResultSearch(@RequestBody Book book){
+        Category category=null;
+        for (int i = 0; i <book.getCategoryList().size() ; i++) {
+            category=categoryService.getCategoryByName(book.getCategoryList().get(i).getName());
+        }
+        List<Book> list=bookService.findByCategoryListAndStatusBookAndAuthorBook(category,book.getStatusBook(),book.getAuthorBook());
+        return list;
     }
 }

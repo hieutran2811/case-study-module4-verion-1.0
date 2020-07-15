@@ -58,8 +58,13 @@ public class BookServiceImpl implements BookService {
     }
 
     @Override
-    public List<Book> getBooksByName(String name) {
-        return bookRepository.findBookByNameBook(name);
+    public List<Book> findByCategoryListAndStatusBookAndAuthorBook(Category category, String status, String author) {
+        return bookRepository.findByCategoryListAndStatusBookAndAuthorBook(category,status,author);
+    }
+
+    @Override
+    public List<Book> getBooksByNameContainning(String name) {
+        return bookRepository.findBookByNameBookContaining(name);
     }
 
 

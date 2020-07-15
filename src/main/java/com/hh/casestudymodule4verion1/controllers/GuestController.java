@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -105,7 +104,7 @@ public class GuestController {
             email = principal.getName();
             account = accountService.getAccountByEmail(email);
         }
-        ModelAndView modelAndView = new ModelAndView("search-result", "bookList", bookService.getBooksByName(string));
+        ModelAndView modelAndView = new ModelAndView("search-result", "bookList", bookService.getBooksByNameContainning(string));
         modelAndView.addObject("account",account);
         return modelAndView;
     }

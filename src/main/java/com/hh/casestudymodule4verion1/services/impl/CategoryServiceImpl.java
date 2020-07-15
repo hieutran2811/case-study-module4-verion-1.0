@@ -29,4 +29,11 @@ public class CategoryServiceImpl implements CategoryService {
     public List<Category> getCategoriesByBook(Book book) {
         return categoryRepository.findAllByBooks(book);
     }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        return categoryRepository.findCategoryByName(name);
+    }
+
+
 }

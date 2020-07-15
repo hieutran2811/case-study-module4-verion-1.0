@@ -11,4 +11,6 @@ public interface CategoryService {
     Optional<Category> getCategoryById(Long id);
 
     List<Category> getCategoriesByBook(Book book);
+
+    Category getCategoryByName(String name);
 }

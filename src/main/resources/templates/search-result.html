@@ -28,11 +28,11 @@
                 </li>
 
             </ul>
-            <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
-                <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
-                       aria-label="Search">
-                <input type="submit" value="tìm kiếm">
-            </form>
+            <!--            <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">-->
+            <!--                <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"-->
+            <!--                       aria-label="Search">-->
+            <!--                <input type="submit" value="tìm kiếm">-->
+            <!--            </form>-->
             <div th:if="${account==null}">
                 <a href="/login" style="color:black ">Đăng nhập</a>
                 <a href="/#" style="color:black ">Đăng ký</a>
@@ -54,47 +54,54 @@
             <div class="row">
                 <div class="row">
                     <div class="col-sm-12">
-                        <input placeholder="nhập tên tác giả">
+                        <input id="author" placeholder="nhập tên tác giả">
                     </div>
                 </div>
                 <div class="row">
                     <div class="card-group col-sm-3">
-                        <select name="vote" id="category">
-                            <option value="1">1 star</option>
-                            <option value="2">2 star</option>
-                            <option value="3">3 star</option>
-
+                        <select name="category" id="category">
+                            <option value="category 1">thể loại 1</option>
+                            <option value="category 2">thể loại 2</option>
+                            <option value="category 3">thể loại 3</option>
+                            <option value="category 4">thể loại 4</option>
+                            <option value="category 5">thể loại 5</option>
                         </select>
                     </div>
                     <div class="card-group col-sm-3">
-                        <select name="vote" id="status">
-                            <option value="1">1 star</option>
-                            <option value="2">2 star</option>
-                            <option value="3">3 star</option>
-
+                        <select name="status" id="status">
+                            <option value="updating">đang cập nhập</option>
+                            <option value="complete">hoàn thành</option>
                         </select>
                     </div>
-                    <div class="card-group col-sm-3">
-                        <select name="vote" id="reads">
-                            <option value="1">1 star</option>
-                            <option value="2">2 star</option>
-                            <option value="3">3 star</option>
+                    <!--                    <div class="card-group col-sm-3">-->
+                    <!--                        <select name="vote" id="reads">-->
 
-                        </select>
-                    </div>
+                    <!--                            <option value="vote">đánh giá</option>-->
+                    <!--                            <option value="2">lượt like</option>-->
+
+                    <!--                        </select>-->
+                    <!--                    </div>-->
                     <div class="card-group col-sm-3">
-                        <button> Lọc</button>
+                        <button onclick="search1()"> Lọc</button>
                     </div>
                 </div>
 
             </div>
-            <div class="row">
+            <div class="row" id="showBooks">
                 <th:block th:each="b: ${bookList}">
                     <div class="card-group col-sm-4">
                         <div class="card">
-                            <a th:href="@{/book/{id}(id=${b.id})}">
-                                <img src="card-img-top" alt="Card image cap" th:src="@{${b.image}}">
-                            </a>
+                            <div th:if="${account==null}">
+                                <a th:href="@{/book/{id}(id=${b.id})}">
+                                    <img src="card-img-top" alt="Card image cap" th:src="@{${b.image}}">
+                                </a>
+                            </div>
+                            <div th:if="${account!=null}">
+                                <a th:href="@{/user/book/{id}(id=${b.id})}">
+                                    <img src="card-img-top" alt="Card image cap" th:src="@{${b.image}}">
+                                </a>
+                            </div>
+
                             <div class="card-body">
                                 <p th:text="${b.nameBook}"></p>
                             </div>
@@ -103,6 +110,7 @@
                 </th:block>
             </div>
         </div>
+
 
         <div class="col-sm-3" id="sidebar">
 
@@ -172,6 +180,44 @@
     </div>
 </div>
 </div>
+<script>
+    function search1() {
 
+        let author = document.getElementById("author").value;
+        let status = document.getElementById("status").value;
+        let category = document.getElementById("category").value;
+        let book = {
+            status: status,
+            author: author,
+            category: {
+                name: category
+            }
+        };
+
+        $.ajax({
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            url: 'http://localhost:8080/user/api/book/search',
+            type: 'POST',
+            data: JSON.stringify(book),
+            success: success,
+            error: failed
+        });
+    }
+
+    function success(response) {
+        let showBooks = `<div th:each="b :${response}">
+            <p th:text="${b.name}"></p>
+        </div>`
+        document.getElementById("showBooks").innerHTML=showBooks;
+    }
+
+    function failed() {
+        alert("failed");
+    }
+
+</script>
 </body>
 </html>

@@ -9,4 +9,6 @@ import java.util.List;
 @Repository
 public interface CategoryRepository extends CrudRepository<Category,Long> {
     List<Category> findAllByBooks(Book book);
+
+    Category findCategoryByName(String name);
 }

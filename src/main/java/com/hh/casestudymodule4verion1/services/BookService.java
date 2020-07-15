@@ -22,9 +22,10 @@ public interface BookService {
 
     Book decreaseLike(Book book);
 
-    List<Book> getBooksByName(String name);
+    List<Book> getBooksByNameContainning(String name);
 
     void remove(Book book);
 
+    List<Book> findByCategoryListAndStatusBookAndAuthorBook(Category category,String status,String author);
 
 }
