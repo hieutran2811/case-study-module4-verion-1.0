@@ -9,7 +9,7 @@
 </head>
 <body>
 <div class="container">
-    <div class="row header">
+<!--    <div class="row header">-->
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <a class="navbar-brand" href="#">Trang trủ</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -27,10 +27,10 @@
                     </li>
 
                 </ul>
-                <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
-                    <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
+                <form class="form-inline my-2 my-lg-0" method="get" action="/search">
+                    <input th:name="searchValue" id="search" class="form-control mr-sm-2" type="text" placeholder="Tìm Kiếm"
                            aria-label="Search">
-                    <input type="submit" value="tìm kiếm">
+                    <input type="submit" value="Tìm Kiếm">
                 </form>
                 <a href="/login" style="color:black ">Đăng nhập</a>
                 <a href="/#" style="color:black ">Đăng ký</a>
@@ -38,7 +38,7 @@
 
             </div>
         </nav>
-    </div>
+<!--    </div>-->
     <!--    //header finished-->
 
     <!--    phần thân hình ảnh-->

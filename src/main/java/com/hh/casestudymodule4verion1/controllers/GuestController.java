@@ -98,8 +98,15 @@ public class GuestController {
     }
 
     @GetMapping("/search")
-    public ModelAndView search(@RequestParam(value = "searchValue") String string) {
+    public ModelAndView search(@RequestParam(value = "searchValue") String string,Principal principal) {
+        String email = "";
+        Account account = null;
+        if (principal != null) {
+            email = principal.getName();
+            account = accountService.getAccountByEmail(email);
+        }
         ModelAndView modelAndView = new ModelAndView("search-result", "bookList", bookService.getBooksByName(string));
+        modelAndView.addObject("account",account);
         return modelAndView;
     }
 

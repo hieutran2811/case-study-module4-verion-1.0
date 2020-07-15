@@ -29,10 +29,19 @@
 
             </ul>
             <!--            <form class="form-inline my-2 my-lg-0" method="post" action="/search" >-->
-            <input id="search" class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Truyện,tác giả..."
-                   aria-label="Search">
-            <button onclick="search()">TÌm Kiếm</button>
-
+            <form class="form-inline my-2 my-lg-0" method="get" action="/search">
+                <input th:name="searchValue" id="search" class="form-control mr-sm-2" type="text" placeholder="Tìm Kiếm"
+                       aria-label="Search">
+                <input type="submit" value="Tìm Kiếm">
+            </form>
+            <div th:if="${account==null}">
+                <a href="/login" style="color:black ">Đăng nhập</a>
+                <a href="/#" style="color:black ">Đăng ký</a>
+                <a href="/#" style="color:black ">quên mật khẩu</a>
+            </div>
+            <div th:if="${account!=null}">
+                <p th:text="${account.name}"></p>
+            </div>
             <a href="/#" style="color:black ">quên mật khẩu</a>
 
         </div>

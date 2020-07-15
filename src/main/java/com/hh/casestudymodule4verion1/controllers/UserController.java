@@ -35,14 +35,20 @@ public class UserController {
     private CommentService commentService;
 
     @GetMapping("")
-    public ModelAndView userHome(@PageableDefault(9) Pageable pageable) {
+    public ModelAndView userHome(@PageableDefault(9) Pageable pageable,Principal principal) {
+        String email = "";
+        Account account = null;
+        if (principal != null) {
+            email = principal.getName();
+            account = accountService.getAccountByEmail(email);
+        }
         ModelAndView modelAndView = null;
         modelAndView = new ModelAndView("user/user-home");
         modelAndView.addObject("bookList", bookService.getAllBook(pageable));
         modelAndView.addObject("categoryList", categoryService.getAllCategory());
         modelAndView.addObject("book",new Book());
+        modelAndView.addObject("account",account);
         return modelAndView;
-
     }
 
     @GetMapping("/book/{id}")

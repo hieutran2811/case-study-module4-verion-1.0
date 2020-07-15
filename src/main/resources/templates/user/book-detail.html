@@ -28,10 +28,10 @@
                 </li>
 
             </ul>
-            <form class="form-inline my-2 my-lg-0" method="post" action="/home_page?action=result_search">
-                <input class="form-control mr-sm-2" type="text" name="home_search" placeholder="Tìm Kiếm"
+            <form class="form-inline my-2 my-lg-0" method="get" action="/search">
+                <input th:name="searchValue" id="search" class="form-control mr-sm-2" type="text" placeholder="Tìm Kiếm"
                        aria-label="Search">
-                <input type="submit" value="tìm kiếm">
+                <input type="submit" value="Tìm Kiếm">
             </form>
             <div th:if="${account==null}">
                 <a href="/login" style="color:black ">Đăng nhập</a>
