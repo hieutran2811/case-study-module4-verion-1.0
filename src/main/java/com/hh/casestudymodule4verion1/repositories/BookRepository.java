@@ -14,6 +14,6 @@ public interface BookRepository extends PagingAndSortingRepository<Book,Long> {
     List<Book> findAllByCategoryList(Category category);
 
     Optional<Book> findById(Long id);
-    List<Book> findBooksByNameBook(String name);
+    List<Book> findBookByNameBook(String name);
 
 }

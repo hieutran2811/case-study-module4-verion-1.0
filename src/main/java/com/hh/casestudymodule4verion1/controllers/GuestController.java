@@ -4,6 +4,7 @@ package com.hh.casestudymodule4verion1.controllers;
 import com.hh.casestudymodule4verion1.models.Account;
 import com.hh.casestudymodule4verion1.models.Book;
 import com.hh.casestudymodule4verion1.models.Category;
+import com.hh.casestudymodule4verion1.models.Chapter;
 import com.hh.casestudymodule4verion1.services.AccountService;
 import com.hh.casestudymodule4verion1.services.BookService;
 import com.hh.casestudymodule4verion1.services.CategoryService;
@@ -44,7 +45,7 @@ public class GuestController {
     @GetMapping("")
     public String guestHome(@PageableDefault(size = 9) Pageable pageable, Model model, Principal principal) {
         String email = "";
-        if(principal!=null){
+        if (principal != null) {
             email = principal.getName();
             Account account = accountService.getAccountByEmail(email);
             for (int i = 0; i < account.getRoles().size(); i++) {
@@ -94,8 +95,22 @@ public class GuestController {
     }
 
     @GetMapping("/search")
-    public ModelAndView search(@RequestParam(value = "searchValue") String string){
-        ModelAndView modelAndView=new ModelAndView("search-result","bookList",bookService.getBooksByName(string));
+    public ModelAndView search(@RequestParam(value = "searchValue") String string) {
+        ModelAndView modelAndView = new ModelAndView("search-result", "bookList", bookService.getBooksByName(string));
         return modelAndView;
+    }
+
+    @GetMapping("/readBook/{id}")
+    public ModelAndView readBook(@PathVariable Long id) {
+        Optional<Chapter> chapter = chapterService.getChapterById((id));
+        if (chapter.isPresent()) {
+            ModelAndView modelAndView = new ModelAndView("book-content", "chapter", chapter.get());
+            return modelAndView;
+        } else {
+            id=1L;
+            Optional<Chapter> chapter1 = chapterService.getChapterById((id));
+            ModelAndView modelAndView = new ModelAndView("book-content", "chapter", chapter1);
+            return modelAndView;
+        }
     }
 }

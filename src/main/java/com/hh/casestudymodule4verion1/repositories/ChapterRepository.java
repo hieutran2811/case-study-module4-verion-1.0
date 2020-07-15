@@ -8,9 +8,11 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ChapterRepository extends PagingAndSortingRepository<Chapter,Long> {
     List<Chapter> findChaptersByBook(Book book);
     Page<Chapter> findChaptersByBook(Pageable pageable, Book book);
+    Optional<Chapter> findChapterById(Long id);
 }

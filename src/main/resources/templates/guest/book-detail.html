@@ -73,8 +73,8 @@
                     <ul class="list-group" th:each=" chapter: ${chapters}">
 
                         <li class="list-group-item"> Chương <span
-                                th:text="${chapter.chapters}"></span><span>-</span><span
-                                th:text="${chapter.name}"></span></li>
+                                th:text="${chapter.chapters}"></span><span>-</span><a
+                                th:text="${chapter.name}" th:href="@{/readBook/{id}(id=${chapter.id})}" ></a></li>
 
                     </ul>
                 </div>
