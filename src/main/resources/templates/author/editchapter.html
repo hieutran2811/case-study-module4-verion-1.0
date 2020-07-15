@@ -12,7 +12,7 @@
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
-<form th:action="@{/edit-chapter}" th:object="${chapter}" method="post">
+<form th:action="@{/author/edit-chapter}" th:object="${chapter}" method="post">
     <table>
         <tr>
             <td> Chapter Number:</td>

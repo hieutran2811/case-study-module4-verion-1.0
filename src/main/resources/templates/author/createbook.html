@@ -12,8 +12,11 @@
 <th:block th:if="${message}">
     <p th:text="${message}"></p>
 </th:block>
-<form th:action="@{/create-book}" th:object="${book}" method="post">
+<form th:action="@{/author/create-book}" th:object="${book}" method="post">
     <table>
+        <tr>
+            <td><input th:field="*{id}" type="hidden"></td>
+        </tr>
         <tr>
             <td>Book name:</td>
             <td><input type="text" th:field="*{nameBook}"/></td>
@@ -31,9 +34,18 @@
             <td><input type="text" th:field="*{introduceBook}"/></td>
         </tr>
         <tr>
+            <select th:field="*{statusBook}" name="status" id="status">
+                <option value="updating">updating</option>
+                <option value="complete">complete</option>
+                <option value="stop">stop</option>
+
+            </select>
+        </tr>
+        <tr>
             <td></td>
             <td><input type="submit" value="Create book"></td>
         </tr>
+
     </table>
 </form>
 </body>
