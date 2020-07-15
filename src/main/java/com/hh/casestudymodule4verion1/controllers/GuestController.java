@@ -1,16 +1,14 @@
 package com.hh.casestudymodule4verion1.controllers;
 
 
-import com.hh.casestudymodule4verion1.models.Account;
-import com.hh.casestudymodule4verion1.models.Book;
-import com.hh.casestudymodule4verion1.models.Category;
-import com.hh.casestudymodule4verion1.models.Chapter;
+import com.hh.casestudymodule4verion1.models.*;
 import com.hh.casestudymodule4verion1.services.AccountService;
 import com.hh.casestudymodule4verion1.services.BookService;
 import com.hh.casestudymodule4verion1.services.CategoryService;
 import com.hh.casestudymodule4verion1.services.ChapterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -22,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -77,6 +76,10 @@ public class GuestController {
             modelAndView = new ModelAndView("guest/list-book-by-category", "books", list);
             return modelAndView;
         }
+//        Account account=new Account();
+//        List<Role> list=new ArrayList<>();
+//        list.add(new Role("ROLE_USER"));
+//        account.setRoles(list);
         return new ModelAndView("/error-404");
     }
 
@@ -101,15 +104,24 @@ public class GuestController {
     }
 
     @GetMapping("/readBook")
-    public ModelAndView readBook(@RequestParam Long id, @PageableDefault(size = 1) Pageable pageable) {
+    public ModelAndView readBook(@RequestParam Long id, @RequestParam Long chapters, @PageableDefault(size = 1) Pageable pageable, Principal principal) {
+        String email = "";
+        Account account = null;
+        if (principal != null) {
+            email = principal.getName();
+            account = accountService.getAccountByEmail(email);
+        }
         Optional<Book> book = bookService.getBookById(id);
+        Optional<Chapter> chapter = chapterService.getChapterByChapterAndBook(chapters, book.get());
         ModelAndView modelAndView = null;
-        if (book.isPresent()) {
-            Page<Chapter> chapters = chapterService.getChaptersByBook(pageable, book.get());
-            modelAndView = new ModelAndView("book-content", "chapters", chapters);
-            modelAndView.addObject("book",book.get());
+        if (book.isPresent() && chapter.isPresent()) {
+            pageable = PageRequest.of(Integer.parseInt((chapters - 1) + ""), 1);
+            Page<Chapter> chapters1 = chapterService.getChaptersByBook(pageable, book.get());
+            modelAndView = new ModelAndView("book-content", "chapters", chapters1);
+            modelAndView.addObject("chapter", chapter.get());
+            modelAndView.addObject("book", book.get());
+            modelAndView.addObject("account", account);
         }
         return modelAndView;
-
     }
 }

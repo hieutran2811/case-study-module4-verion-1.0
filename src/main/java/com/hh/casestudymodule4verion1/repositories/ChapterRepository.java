@@ -15,4 +15,6 @@ public interface ChapterRepository extends PagingAndSortingRepository<Chapter,Lo
     List<Chapter> findChaptersByBook(Book book);
     Page<Chapter> findChaptersByBook(Pageable pageable, Book book);
     Optional<Chapter> findChapterById(Long id);
+
+    Optional<Chapter> findChapterByChaptersAndBook(Long chapterNumber,Book book);
 }

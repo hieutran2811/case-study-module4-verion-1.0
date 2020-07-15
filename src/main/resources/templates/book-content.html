@@ -33,9 +33,14 @@
                        aria-label="Search">
                 <input type="submit" value="tìm kiếm">
             </form>
-            <a href="/login" style="color:black ">Đăng nhập</a>
-            <a href="/#" style="color:black ">Đăng ký</a>
-            <a href="/#" style="color:black ">quên mật khẩu</a>
+            <div th:if="${account==null}">
+                 <a href="/login" style="color:black ">Đăng nhập</a>
+                <a href="/#" style="color:black ">Đăng ký</a>
+                <a href="/#" style="color:black ">quên mật khẩu</a>
+            </div>
+            <div th:if="${account!=null}">
+                <p th:text="${account.name}"></p>
+            </div>
 
         </div>
     </nav>
@@ -47,7 +52,7 @@
         <div>
 
         </div>
-        <th:block th:each="chapter :${chapters}">
+        <th:block th:each="c :${chapters}">
             <div class="col-sm-12">
                 <h2>Chương</h2>
                 <h2>:</h2>
@@ -57,20 +62,20 @@
             </div>
             <br>
             <div class="col-sm-12">
-                <h4> Truyện</h4> <h4 th:text="${chapter.book.nameBook}"></h4>
+                <h4> Truyện</h4> <h4 th:text="${book.nameBook}"></h4>
             </div>
             <br>
             <div class="col-sm-12">
                 <p>Tác giả</p>
-                <p th:text="${chapter.book.authorBook}"></p>
+                <p th:text="${book.authorBook}"></p>
             </div>
             <br>
             <div class="col-sm-12">
                 <p>ngày đăng</p>
-                <p th:text="${chapter.postTime}"></p>
+                <p th:text="${c.postTime}"></p>
             </div>
             <div class="col-sm-12">
-                <h4 th:text="${chapter.content}"></h4>
+                <h4 th:text="${c.content}"></h4>
             </div>
         </th:block>
     </div>
@@ -80,21 +85,20 @@
             <nav aria-label="Page navigation example">
                 <ul class="pagination">
                     <li class="page-item">
-                        <a class="page-link" th:href="@{'/readBook/'(page=${chapters.number - 1},id=${book.id})}"
+                        <a class="page-link" th:href="@{'/readBook/'(page=${chapters.number - 1},id=${book.id},chapters=${chapter.chapters-1})}"
                            th:if="${chapters.hasPrevious()}">Previous</a>
                     </li>
                     <li class="page-item">
                         <span th:text="${chapters.number + 1}"></span>/<span th:text="${chapters.totalPages}"></span>
                     </li>
                     <li class="page-item">
-                        <a class="page-link" th:href="@{'/readBook/'(page=${chapters.number + 1},id=${book.id})}"
+                        <a class="page-link" th:href="@{'/readBook/'(page=${chapters.number + 1},id=${book.id},chapters=${chapter.chapters+1})}"
                            th:if="${chapters.hasNext()}">Next</a>
                     </li>
                 </ul>
             </nav>
         </div>
     </div>
-
 </div>
 
 

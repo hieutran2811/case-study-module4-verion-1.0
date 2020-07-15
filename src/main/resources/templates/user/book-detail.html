@@ -33,8 +33,14 @@
                        aria-label="Search">
                 <input type="submit" value="tìm kiếm">
             </form>
-            <!--                <a href="/login" style="color:black ">Đăng nhập</a>-->
-            <!--                <a href="/#" style="color:black ">Đăng ký</a>-->
+            <div th:if="${account==null}">
+                <a href="/login" style="color:black ">Đăng nhập</a>
+                <a href="/#" style="color:black ">Đăng ký</a>
+                <a href="/#" style="color:black ">quên mật khẩu</a>
+            </div>
+            <div th:if="${account!=null}">
+                <p th:text="${account.name}"></p>
+            </div>
             <a href="/#" style="color:black ">quên mật khẩu</a>
 
         </div>
@@ -64,7 +70,8 @@
                         <h3 th:text="${book.nameBook}"></h3><br>
                         ...
                         <a href="#">Đọc truyện</a>
-                        <p>rating vote: </p><p id="ratingVote" th:text="${book.voteBook}"> </p>
+                        <p>rating vote: </p>
+                        <p id="ratingVote" th:text="${book.voteBook}"></p>
                         <p th:text="${book.introduceBook}"></p>
 
                         <label for="vote">Vote here:</label>
@@ -82,8 +89,9 @@
                         </select>
                         <button onclick="vote()">Vote</button>
                         <br>
-                        <p th:text="${book.likeBook}" id="like"></p><p >likes</p>
-                        <button onclick="like()">Like </button>
+                        <p th:text="${book.likeBook}" id="like"></p>
+                        <p>likes</p>
+                        <button onclick="like()">Like</button>
 
                     </div>
                 </div>
@@ -93,8 +101,8 @@
                     <ul class="list-group" th:each=" chapter: ${chapters}">
 
                         <li class="list-group-item"> Chương <span
-                                th:text="${chapter.chapters}"></span><span>-</span><span
-                                th:text="${chapter.name}"></span></li>
+                                th:text="${chapter.chapters}"></span><span>-</span><a
+                                th:text="${chapter.name}" th:href="@{'/readBook'(id=${book.id},chapters=${chapter.chapters})}"></a></li>
                     </ul>
                 </div>
             </div>
@@ -301,7 +309,7 @@
     }
 
     function showRatingVote(response) {
-        document.getElementById("ratingVote").innerHTML=response;
+        document.getElementById("ratingVote").innerHTML = response;
     }
 
     //function like
@@ -328,6 +336,7 @@
             error: fail
         });
     }
+
     function likeSuccess() {
         let id = document.getElementById("bookId").value;
         $.ajax({
@@ -338,8 +347,9 @@
             fail: fail
         });
     }
+
     function showLikes(response) {
-        document.getElementById("like").innerHTML=response;
+        document.getElementById("like").innerHTML = response;
     }
 
 </script>

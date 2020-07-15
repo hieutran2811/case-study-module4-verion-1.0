@@ -79,8 +79,4 @@ public class UserController {
         return modelAndView;
     }
 
-//    @GetMapping("/search")
-//    public ModelAttribute search(){
-//
-//    }
 }
