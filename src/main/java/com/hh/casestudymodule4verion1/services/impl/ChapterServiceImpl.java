@@ -31,6 +31,13 @@ public class ChapterServiceImpl implements ChapterService {
     public Optional<Chapter> getChapterById(Long id) {
         return chapterRepository.findChapterById(id);
     }
+
+    @Override
+    public Optional<Chapter> getChapterByChapterAndBook(Long chapterNumber, Book book) {
+        return chapterRepository.findChapterByChaptersAndBook(chapterNumber,book);
+    }
+
+
     @Override
     public void save(Chapter chapter) {
         chapterRepository.save(chapter);

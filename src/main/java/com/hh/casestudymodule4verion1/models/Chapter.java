@@ -19,7 +19,7 @@ public class Chapter {
 
     private Timestamp postTime;
 
-    private int chapters;
+    private Long chapters;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Book book;
@@ -64,11 +64,11 @@ public class Chapter {
         this.postTime = postTime;
     }
 
-    public int getChapters() {
+    public Long getChapters() {
         return chapters;
     }
 
-    public void setChapters(int chapters) {
+    public void setChapters(Long chapters) {
         this.chapters = chapters;
     }
 }
