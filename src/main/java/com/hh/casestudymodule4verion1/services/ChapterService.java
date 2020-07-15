@@ -11,6 +11,6 @@ import java.util.Optional;
 
 public interface ChapterService {
     List<Chapter> getChaptersByBook(Book book);
-    Page<Chapter> getChapterByBook(Pageable pageable, Book book);
+    Page<Chapter> getChaptersByBook(Pageable pageable, Book book);
     Optional<Chapter> getChapterById(Long id);
 }

@@ -74,7 +74,7 @@ public class UserController {
             modelAndView = new ModelAndView("/error-404");
             return modelAndView;
         }
-        Page<Chapter> chapters = chapterService.getChapterByBook(pageable,book.get());
+        Page<Chapter> chapters = chapterService.getChaptersByBook(pageable,book.get());
         modelAndView = new ModelAndView("user/chapter", "chapter",chapters);
         return modelAndView;
     }

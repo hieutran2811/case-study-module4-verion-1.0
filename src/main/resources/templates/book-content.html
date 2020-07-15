@@ -44,7 +44,10 @@
 
     <!--    phần thân hình ảnh-->
     <div class="row">
-        <div class="row">
+        <div>
+
+        </div>
+        <th:block th:each="chapter :${chapters}">
             <div class="col-sm-12">
                 <h2>Chương</h2>
                 <h2>:</h2>
@@ -55,7 +58,6 @@
             <br>
             <div class="col-sm-12">
                 <h4> Truyện</h4> <h4 th:text="${chapter.book.nameBook}"></h4>
-
             </div>
             <br>
             <div class="col-sm-12">
@@ -66,22 +68,31 @@
             <div class="col-sm-12">
                 <p>ngày đăng</p>
                 <p th:text="${chapter.postTime}"></p>
-
             </div>
-
-        </div>
+            <div class="col-sm-12">
+                <h4 th:text="${chapter.content}"></h4>
+            </div>
+        </th:block>
     </div>
-    <div class="row">
-        <div class="col-sm-6">
-            <a th:href="@{/readBook/{id}(id=${chapter.id-1})}"> Chương trước</a>
-        </div>
-        <div class="col-sm-6">
-            <a th:href="@{/readBook/{id}(id=${chapter.id+1})}"> Chương sau</a>
-        </div>
 
-    </div>
     <div class="row">
-        <h4 th:text="${chapter.content}"></h4>
+        <div class="col-sm-12">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/readBook/'(page=${chapters.number - 1},id=${book.id})}"
+                           th:if="${chapters.hasPrevious()}">Previous</a>
+                    </li>
+                    <li class="page-item">
+                        <span th:text="${chapters.number + 1}"></span>/<span th:text="${chapters.totalPages}"></span>
+                    </li>
+                    <li class="page-item">
+                        <a class="page-link" th:href="@{'/readBook/'(page=${chapters.number + 1},id=${book.id})}"
+                           th:if="${chapters.hasNext()}">Next</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
     </div>
 
 </div>

@@ -100,17 +100,16 @@ public class GuestController {
         return modelAndView;
     }
 
-    @GetMapping("/readBook/{id}")
-    public ModelAndView readBook(@PathVariable Long id) {
-        Optional<Chapter> chapter = chapterService.getChapterById((id));
-        if (chapter.isPresent()) {
-            ModelAndView modelAndView = new ModelAndView("book-content", "chapter", chapter.get());
-            return modelAndView;
-        } else {
-            id=1L;
-            Optional<Chapter> chapter1 = chapterService.getChapterById((id));
-            ModelAndView modelAndView = new ModelAndView("book-content", "chapter", chapter1);
-            return modelAndView;
+    @GetMapping("/readBook")
+    public ModelAndView readBook(@RequestParam Long id, @PageableDefault(size = 1) Pageable pageable) {
+        Optional<Book> book = bookService.getBookById(id);
+        ModelAndView modelAndView = null;
+        if (book.isPresent()) {
+            Page<Chapter> chapters = chapterService.getChaptersByBook(pageable, book.get());
+            modelAndView = new ModelAndView("book-content", "chapters", chapters);
+            modelAndView.addObject("book",book.get());
         }
+        return modelAndView;
+
     }
 }

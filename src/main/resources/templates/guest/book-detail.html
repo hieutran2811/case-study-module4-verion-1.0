@@ -74,7 +74,7 @@
 
                         <li class="list-group-item"> Chương <span
                                 th:text="${chapter.chapters}"></span><span>-</span><a
-                                th:text="${chapter.name}" th:href="@{/readBook/{id}(id=${chapter.id})}" ></a></li>
+                                th:text="${chapter.name}" th:href="@{'/readBook'(id=${book.id})}" ></a></li>
 
                     </ul>
                 </div>

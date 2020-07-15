@@ -23,7 +23,7 @@ public class ChapterServiceImpl implements ChapterService {
     }
 
     @Override
-    public Page<Chapter> getChapterByBook(Pageable pageable, Book book) {
+    public Page<Chapter> getChaptersByBook(Pageable pageable, Book book) {
         return chapterRepository.findChaptersByBook( pageable,book);
     }
 
