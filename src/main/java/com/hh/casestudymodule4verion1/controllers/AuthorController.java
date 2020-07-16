@@ -1,6 +1,7 @@
 package com.hh.casestudymodule4verion1.controllers;
 
 
+import com.hh.casestudymodule4verion1.models.Account;
 import com.hh.casestudymodule4verion1.models.Book;
 import com.hh.casestudymodule4verion1.models.Chapter;
 import com.hh.casestudymodule4verion1.services.*;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -30,11 +32,18 @@ public class AuthorController {
     private CommentService commentService;
 
     @GetMapping("")
-    public ModelAndView userHome(@PageableDefault(9) Pageable pageable) {
+    public ModelAndView authorHome(@PageableDefault(9) Pageable pageable, Principal principal) {
+        String email = "";
+        Account account = null;
+        if (principal != null) {
+            email = principal.getName();
+            account = accountService.getAccountByEmail(email);
+        }
         ModelAndView modelAndView = null;
         modelAndView = new ModelAndView("user/user-home");
         modelAndView.addObject("bookList", bookService.getAllBook(pageable));
         modelAndView.addObject("categoryList", categoryService.getAllCategory());
+        modelAndView.addObject("account",account);
         return modelAndView;
 
     }

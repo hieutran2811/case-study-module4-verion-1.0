@@ -39,7 +39,7 @@
                 <a href="/#" style="color:black ">quên mật khẩu</a>
             </div>
             <div th:if="${account!=null}">
-                <p th:text="${account.name}"></p>
+                <a style="color: black" th:href="@{/user/detail/{id}(id=${account.id})}" th:text="${account.name}"></a>
             </div>
 
         </div>

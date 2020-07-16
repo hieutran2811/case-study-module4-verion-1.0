@@ -85,4 +85,19 @@ public class UserController {
         return modelAndView;
     }
 
+    @GetMapping("/detail/{id}")
+    public ModelAndView getUserDetail(@PathVariable Long id,Principal principal){
+
+        String email = "";
+        Account account = null;
+        if (principal != null) {
+            email = principal.getName();
+            account = accountService.getAccountByEmail(email);
+        }
+        ModelAndView modelAndView=new ModelAndView("user/detail");
+        modelAndView.addObject("account",account);
+        return modelAndView;
+
+    }
+
 }

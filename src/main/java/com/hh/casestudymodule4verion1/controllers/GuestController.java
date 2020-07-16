@@ -39,7 +39,6 @@ public class GuestController {
     @Autowired
     private AccountService accountService;
 
-
     @GetMapping("")
     public String guestHome(@PageableDefault(size = 9) Pageable pageable, Model model, Principal principal) {
         String email = "";

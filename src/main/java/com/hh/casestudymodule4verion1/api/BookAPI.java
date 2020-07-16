@@ -54,19 +54,18 @@ public class BookAPI {
         Optional<Book> book = bookService.getBookById(id);
         if (book.isPresent()) {
             list = commentService.getAllCommentByBook(book.get());
-
             list1 = commentFake.getContentComment(list);
             return list1;
         }
         return list1;
     }
 
+
     @PostMapping("/saveVote/")
     public void saveVote(@RequestBody Vote vote) {
         Optional<Account> account = accountService.getAccountById(vote.getAccount().getId());
 
         Optional<Book> book = bookService.getBookById(vote.getBook().getId());
-
 
         if (account.isPresent()) {
             vote.setAccount(account.get());
