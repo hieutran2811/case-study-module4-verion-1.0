@@ -2,10 +2,7 @@ package com.hh.casestudymodule4verion1.controllers;
 
 
 import com.hh.casestudymodule4verion1.models.*;
-import com.hh.casestudymodule4verion1.services.AccountService;
-import com.hh.casestudymodule4verion1.services.BookService;
-import com.hh.casestudymodule4verion1.services.CategoryService;
-import com.hh.casestudymodule4verion1.services.ChapterService;
+import com.hh.casestudymodule4verion1.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +35,9 @@ public class GuestController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("")
     public String guestHome(@PageableDefault(size = 9) Pageable pageable, Model model, Principal principal) {
@@ -89,9 +89,11 @@ public class GuestController {
             modelAndView = new ModelAndView("/error-404");
             return modelAndView;
         }
+        List<Comment> list=commentService.getCommentsByBook(book.get());
         modelAndView = new ModelAndView("guest/book-detail", "book", book.get());
         modelAndView.addObject("categories", categoryService.getCategoriesByBook(book.get()));
         modelAndView.addObject("chapters", chapterService.getChaptersByBook(book.get()));
+        modelAndView.addObject("comments",list);
         return modelAndView;
     }
 

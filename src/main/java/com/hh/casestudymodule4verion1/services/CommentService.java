@@ -9,4 +9,5 @@ public interface CommentService {
 
     List<Comment> getAllCommentByBook(Book book);
 //    List<Comment> getContentComment(List<Comment> list);
+List<Comment> getCommentsByBook(Book book);
 }

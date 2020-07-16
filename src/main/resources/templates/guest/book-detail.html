@@ -54,7 +54,7 @@
                             <p th:text="${c.name}"></p>
                         </th:block>
                         <p th:text="${book.statusBook}"></p>
-                        <p th:text="${book.readsBook}"></p>
+                        <p th:text="${book.readsBook}"></p>account
                     </div>
                 </div>
                 <div class="card-group col-sm-8">
@@ -63,8 +63,11 @@
                         <p>
                             bạn có thể đăng nhập để có tính năng like,vote ,thêm vào truyện yêu thích
                         </p><br>
-                        <a href="#">Đọc truyện</a>
+                        <a href="/">Đọc truyện</a>
                         <p th:text="${book.introduceBook}"></p>
+                        <p> vote:</p><p th:text="${book.voteBook}"></p>
+                        <p>like:</p><p th:text="${book.likeBook}"></p>
+
                     </div>
                 </div>
             </div>
@@ -102,7 +105,26 @@
             </div>
         </div>
     </div>
-
+    <div class="row">
+        <table>
+            <thead>
+            <tr>
+                <th>comment</th>
+                <th>author</th>
+                <th>post time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <th:block th:each="c : ${comments}">
+                <tr>
+                    <td th:text="${c.content}"></td>
+                    <td th:text="${c.getAccount().name}"></td>
+                    <td th:text="${c.postTime}"></td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
 
     <!--footer-->
     <div class="row">
@@ -148,6 +170,8 @@
             </ul>
         </div>
     </div>
+
+
 
 </div>
 </body>

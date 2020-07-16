@@ -25,6 +25,11 @@ public class CommentServiceImpl implements CommentService {
     public List<Comment> getAllCommentByBook(Book book) {
         return commentRepository.findAllByBook(book);
     }
+
+    @Override
+    public List<Comment> getCommentsByBook(Book book) {
+        return commentRepository.findCommentsByBook(book);
+    }
 //    @Override
 //    public List<Comment> getContentComment(List<Comment> list){
 //        List<Comment> list1=new ArrayList<>();

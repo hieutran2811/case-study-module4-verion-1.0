@@ -55,7 +55,14 @@ public class AuthorController {
     }
 
     @PostMapping("/create-book")
-    public ModelAndView saveBook(@ModelAttribute("book") Book book){
+    public ModelAndView saveBook(@ModelAttribute("book") Book book,Principal principal){
+        String email = "";
+        Account account = null;
+        if (principal != null) {
+            email = principal.getName();
+            account = accountService.getAccountByEmail(email);
+        }
+        book.setAccount(account);
         bookService.save(book);
         ModelAndView modelAndView = new ModelAndView("/author/createbook");
         modelAndView.addObject("book", new Book());
